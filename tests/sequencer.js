@@ -1,4 +1,4 @@
-import Sequencer from 'lib/sequencer';
+import Sequencer from 'trax/lib/sequencer';
 
 describe("Sequencer", () => {
 

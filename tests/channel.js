@@ -1,4 +1,4 @@
-import Channel from 'lib/channel';
+import Channel from 'trax/lib/channel';
 
 describe('Channel', () => {
 

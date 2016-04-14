@@ -1,14 +1,14 @@
 require('es6-promise').polyfill();
 var path = require('path');
+var resolve = path.resolve;
 var join = path.join;
+var dirname = path.resolve(__dirname);
 
-var dir = path.resolve(__dirname);
-
-var config = {
+module.exports = {
 
   cache: true,
-  devtool: 'eval-source-map',
-  entry: 'test/test.js',
+  devtool: 'inline-source-map',
+  entry: 'index.js',
 
   output: {
     filename: 'bundle.js',
@@ -21,32 +21,26 @@ var config = {
         test: /\.js$/,
         loader: 'babel',
         include: [
-          join(dir, 'node_modules/sentry'),
-          join(dir, 'node_modules/stateful'),
-          join(dir, 'test'),
-          join(dir, 'index.js'),
-          join(dir, 'lib')
+          join(dirname, 'node_modules/sentry'),
+          join(dirname, 'node_modules/stateful'),
+          join(dirname, 'test'),
+          join(dirname, 'index.js'),
+          join(dirname, 'lib')
         ],
         query: {
-          presets: ['es2015']
+          presets: ['es2015'],
+          plugins: ['transform-object-rest-spread']
         }
       }
     ]
   },
 
   resolve: {
-    root: dir,
-    extensions: ['', '.js']
+    root: dirname,
+    extensions: ['', '.js'],
+    alias: {
+      'trax': dirname
+    }
   }
 
 };
-
-if (process.env.mode === 'build') {
-  config.entry = resolve(__dirname, 'index.js');
-  // config.devtool = 'inline-source-map';
-  config.devtool = undefined;
-  config.output.path = './build/';
-  config.output.filename = 'sequencer.js';
-}
-
-module.exports = config;
