@@ -14,10 +14,6 @@
   },
   "homepage": "https://github.com/quxbaz/trax#readme",
   "dependencies": {
-    "lodash": "^4.8.2",
-    "redux": "^3.3.1",
-    "sentry": "git+https://github.com/quxbaz/sentry.git",
-    "stateful": "git+https://github.com/quxbaz/stateful.git",
     "timer.js": "git+https://github.com/quxbaz/timer.js.git"
   },
   "devDependencies": {
