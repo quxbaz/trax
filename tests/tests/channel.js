@@ -20,6 +20,14 @@ describe("channel", () => {
       ).toEqual(stateAfter)
     })
 
+    it("Child blips inherit the sample property.", () => {
+      const stateBefore = {sample: 'kick'}
+      const channelState = channel.reducer({sample: 'kick'}, {})
+      channelState.blips.forEach((blip) => {
+        expect(blip.sample).toEqual('kick')
+      })
+    })
+
   })
 
 })

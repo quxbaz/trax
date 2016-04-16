@@ -58,17 +58,13 @@ describe("sequencer", () => {
     })
 
     it("Adds a channel.", () => {
-      const action = sequencer.actions.addChannel({
-        sample: 'hihat',
-        foo: 'foo'
-      })
+      const action = sequencer.actions.addChannel({mute: true})
       const stateBefore = {channels: []}
       const stateAfter = {channels: [{
-        sample: 'hihat',
+        sample: '',
         beats: 16,
-        mute: false,
+        mute: true,
         blips: defaultBlips,
-        foo: 'foo'
       }]}
       expect(
         sequencer.reducer(stateBefore, action)
