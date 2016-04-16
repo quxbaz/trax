@@ -1,10 +1,6 @@
-require('chai').should()
+import './tests/sequencer'
+import './tests/channel'
+import './tests/blip'
 
-import './util'
-import './base'
-import './sequencer'
-import './channel'
-import './blip'
-import './audioservice'
-
+mocha.allowUncaught()
 mocha.run()

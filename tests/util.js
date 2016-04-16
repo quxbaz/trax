@@ -1,7 +1,17 @@
-import * as util from 'trax/lib/util'
+import {blip} from 'trax'
+import {initialState} from 'trax/lib/channel/reducer'
 
-describe("util", () => {
-  it("no tests yet", () => {
+const defaultBlips = (() => {
+  const blips = []
+  for (let i=0; i < initialState.beats; i++) {
+    blips.push(blip.reducer(undefined, {
+      type: blip.actionTypes.CREATE_BLIP,
+      payload: {beat: i}
+    }))
+  }
+  return blips
+}).call()
 
-  });
-})
+Object.freeze(defaultBlips)
+
+export {defaultBlips}

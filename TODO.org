@@ -1,5 +1,11 @@
 Todo
 
 - Implement redux architecture
+
 - Move audioservice to external module
+
 - Use timer object that works in browser or node environment
+
+- Browserless
+
+- Treat timer like a react view
