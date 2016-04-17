@@ -13,9 +13,7 @@
     "url": "https://github.com/quxbaz/trax/issues"
   },
   "homepage": "https://github.com/quxbaz/trax#readme",
-  "dependencies": {
-    "timer.js": "git+https://github.com/quxbaz/timer.js.git"
-  },
+  "dependencies": {},
   "devDependencies": {
     "babel-core": "^6.4.0",
     "babel-loader": "^6.2.1",
