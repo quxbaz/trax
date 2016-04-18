@@ -1,5 +1,5 @@
 import {blip} from 'trax'
-import {initialState} from 'trax/lib/channel/reducer'
+import {initialState} from 'trax/lib/channels/reducer'
 
 const defaultBlips = (() => {
   const blips = []

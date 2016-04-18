@@ -1,3 +1,4 @@
+import './tests/util'
 import './tests/sequencer'
 import './tests/channel'
 import './tests/blip'
