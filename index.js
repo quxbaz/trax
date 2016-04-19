@@ -3,12 +3,10 @@ import channels from './lib/channels'
 import blips from './lib/blips'
 import AudioService from './lib/AudioService'
 
-const reducer = (state, action) => {
-  return {
-    sequencer: sequencer.reducer(state.sequencer, action),
-    channels: channel.reducer(state.channels, action),
-    blips: blip.reducer(state.blips, action)
-  }
-}
+const reducers = ({
+  sequencer: sequencer.reducer,
+  channels: channels.reducer,
+  blips: blips.reducer
+})
 
-export {reducer, sequencer, channels, blips, AudioService}
+export {reducers, sequencer, channels, blips, AudioService}
