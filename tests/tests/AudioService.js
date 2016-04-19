@@ -1,4 +1,4 @@
-import {blip, AudioService} from 'trax'
+import {blips, AudioService} from 'trax'
 
 function decodeAudioData(audioContext, audioBuffer) {
   return new Promise(resolve => {
@@ -29,22 +29,19 @@ describe("AudioService", function() {
   })
 
   beforeEach(() => {
-    audioService = new AudioService(audioContext, {
-      'hihat': hihat
-    })
+    audioService = new AudioService(audioContext, {hihat})
   })
 
-  it("Should play four audible hihat sounds (this test will always pass).", () => {
-    const state = blip.reducer(undefined, {
-      type: blip.actionTypes.CREATE_BLIP,
+  it("Should play two audible hihat sounds (this test will always pass).", () => {
+    const state = blips.reducer(undefined, {
+      type: blips.actionTypes.CREATE_BLIP,
       payload: {
+        id: 0,
         sample: 'hihat'
       }
-    })
+    })[0]
     audioService.play(state)
     audioService.play({...state, offset: 100})
-    audioService.play({...state, offset: 200})
-    audioService.play({...state, offset: 300})
   })
 
 })

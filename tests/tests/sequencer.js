@@ -1,14 +1,17 @@
 import expect from 'expect'
-import {sequencer, channel} from 'trax'
+import {createStore, applyMiddleware, combineReducers} from 'redux'
+import thunk from 'redux-thunk'
+import {sequencer, channels} from 'trax'
 import {initialState} from 'trax/lib/sequencer/reducer'
+import {initialState as channelInitialState} from 'trax/lib/channels/reducer'
 
 describe("sequencer", () => {
 
   describe("reducer", () => {
 
     it("Gets the initial state.", () => {
-      const action = {}
       const stateBefore = undefined
+      const action = {}
       const stateAfter = {}
       expect(
         sequencer.reducer(stateBefore, action)
@@ -16,11 +19,11 @@ describe("sequencer", () => {
     })
 
     it("Creates a sequencer.", () => {
+      const stateBefore = undefined
       const action = {
-        type: sequencer.actionTypes.CREATE,
+        type: sequencer.actionTypes.CREATE_SEQUENCER,
         payload: {id: 0}
       }
-      const stateBefore = undefined
       const stateAfter = {
         ...initialState,
         id: 0
@@ -30,55 +33,90 @@ describe("sequencer", () => {
       ).toEqual(stateAfter)
     })
 
-//     it("Plays", () => {
-//       const action = sequencer.actions.play()
-//       const stateBefore = {playing: false}
-//       const stateAfter = {playing: true}
-//       expect(
-//         sequencer.reducer(stateBefore, action)
-//       ).toEqual(stateAfter)
-//     })
+    it("Plays", () => {
+      const stateBefore = {playing: false}
+      const action = sequencer.actions.play()
+      const stateAfter = {playing: true}
+      expect(
+        sequencer.reducer(stateBefore, action)
+      ).toEqual(stateAfter)
+    })
 
-//     it("Pauses", () => {
-//       const action = sequencer.actions.pause()
-//       const stateBefore = {playing: true}
-//       const stateAfter = {playing: false}
-//       expect(
-//         sequencer.reducer(stateBefore, action)
-//       ).toEqual(stateAfter)
-//     })
+    it("Pauses", () => {
+      const stateBefore = {playing: true}
+      const action = sequencer.actions.pause()
+      const stateAfter = {playing: false}
+      expect(
+        sequencer.reducer(stateBefore, action)
+      ).toEqual(stateAfter)
+    })
 
-//     it("Steps the beat forward.", () => {
-//       const action = sequencer.actions.step()
-//       const stateBefore = {beats: 16, currentBeat: 0}
-//       const stateAfter = {beats: 16, currentBeat: 1}
-//       expect(
-//         sequencer.reducer(stateBefore, action)
-//       ).toEqual(stateAfter)
-//     })
+    it("Steps the beat forward.", () => {
+      const stateBefore = {beats: 16, currentBeat: 0}
+      const action = sequencer.actions.step()
+      const stateAfter = {beats: 16, currentBeat: 1}
+      expect(
+        sequencer.reducer(stateBefore, action)
+      ).toEqual(stateAfter)
+    })
 
-//     it("Cycles the beat back to 0 after the last beat.", () => {
-//       const action = sequencer.actions.step()
-//       const stateBefore = {beats: 16, currentBeat: 15}
-//       const stateAfter = {beats: 16, currentBeat: 0}
-//       expect(
-//         sequencer.reducer(stateBefore, action)
-//       ).toEqual(stateAfter)
-//     })
+    it("Cycles the beat back to 0 after the last beat.", () => {
+      const stateBefore = {beats: 16, currentBeat: 15}
+      const action = sequencer.actions.step()
+      const stateAfter = {beats: 16, currentBeat: 0}
+      expect(
+        sequencer.reducer(stateBefore, action)
+      ).toEqual(stateAfter)
+    })
 
-//     it("Adds a channel.", () => {
-//       const action = sequencer.actions.addChannel({mute: true})
-//       const stateBefore = {channels: []}
-//       const stateAfter = {channels: [{
-//         sample: '',
-//         beats: 16,
-//         mute: true,
-//         blips: defaultBlips,
-//       }]}
-//       expect(
-//         sequencer.reducer(stateBefore, action)
-//       ).toEqual(stateAfter)
-//     })
+    it("Adds a channel.", () => {
+
+      const store = createStore(
+        combineReducers({
+          sequencer: sequencer.reducer,
+          channels: channels.reducer
+        }),
+        applyMiddleware(thunk)
+      )
+
+      store.dispatch(
+        sequencer.actions.createSequencer({id: 0})
+      )
+
+      store.dispatch(
+        sequencer.actions.addChannel({id: 1, mute: true})
+      )
+
+      const state = store.getState()
+
+      expect(state.sequencer).toEqual({
+        ...initialState,
+        id: 0,
+        channels: [1],
+      })
+
+      expect(state.channels).toEqual({
+        1: {
+          ...channelInitialState,
+          id: 1,
+          mute: true
+        }
+      })
+
+    })
+
+    it("Removes a channel.", () => {
+      const stateBefore = {
+        channels: [1, 2]
+      }
+      const action = sequencer.actions.removeChannel(1)
+      const stateAfter = {
+        channels: [2]
+      }
+      expect(
+        sequencer.reducer(stateBefore, action)
+      ).toEqual(stateAfter)
+    })
 
   })
 

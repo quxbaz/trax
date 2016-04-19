@@ -14,6 +14,10 @@
   },
   "homepage": "https://github.com/quxbaz/trax#readme",
   "dependencies": {
+    "lodash.omit": "^4.2.1",
+    "lodash.pick": "^4.2.0",
+    "lodash.times": "^4.1.0",
+    "lodash.values": "^4.1.0",
     "node-uuid": "^1.4.7"
   },
   "devDependencies": {
@@ -23,7 +27,10 @@
     "babel-preset-es2015": "^6.3.13",
     "es6-promise": "^3.0.2",
     "expect": "^1.16.0",
+    "lodash": "^4.11.1",
     "mocha": "^2.3.4",
+    "redux": "^3.4.0",
+    "redux-thunk": "^2.0.1",
     "webpack": "^1.12.11"
   },
   "scripts": {

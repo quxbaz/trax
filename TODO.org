@@ -1,4 +1,1 @@
 Todo
-
-- Create channel action that also spawn blips with n references to
-  channel and updates channel state to include blip ids
