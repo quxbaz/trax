@@ -156,6 +156,15 @@ describe("channel", () => {
       ).toEqual(stateAfter)
     })
 
+    it("Restores an archived channel.", () => {
+      const stateBefore = {1: {archived: true}}
+      const action = channels.actions.restoreChannel(1)
+      const stateAfter = {1: {archived: false}}
+      expect(
+        channels.reducer(stateBefore, action)
+      ).toEqual(stateAfter)
+    })
+
     it("Toggles mute on a channel.", () => {
       const stateBefore = {1: {}}
       const action = channels.actions.toggleMuteChannel(1)
