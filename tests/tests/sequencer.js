@@ -1,9 +1,6 @@
 import expect from 'expect'
-import {createStore, applyMiddleware, combineReducers} from 'redux'
-import thunk from 'redux-thunk'
-import {sequencer, channels} from 'trax'
+import {sequencer} from 'trax'
 import {initialState} from 'trax/lib/sequencer/reducer'
-import {initialState as channelInitialState} from 'trax/lib/channels/reducer'
 
 describe("sequencer", () => {
 
@@ -64,19 +61,6 @@ describe("sequencer", () => {
       const stateBefore = {beats: 16, currentBeat: 15}
       const action = sequencer.actions.step()
       const stateAfter = {beats: 16, currentBeat: 0}
-      expect(
-        sequencer.reducer(stateBefore, action)
-      ).toEqual(stateAfter)
-    })
-
-    it("Removes a channel.", () => {
-      const stateBefore = {
-        channels: [1, 2]
-      }
-      const action = sequencer.actions.removeChannel(1)
-      const stateAfter = {
-        channels: [2]
-      }
       expect(
         sequencer.reducer(stateBefore, action)
       ).toEqual(stateAfter)

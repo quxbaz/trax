@@ -132,7 +132,7 @@ describe("channel", () => {
         1: {id: 1},
         2: {id: 2}
       }
-      const action = sequencer.actions.removeChannel(1)
+      const action = channels.actions.removeChannel(1)
       const stateAfter = {
         2: {id: 2}
       }
