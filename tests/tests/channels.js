@@ -99,6 +99,23 @@ describe("channel", () => {
       ).toBe(true)
     })
 
+    it("Child blips have their beat set.", () => {
+      const store = createStore(
+        combineReducers({
+          channels: channels.reducer,
+          blips: blips.reducer
+        }),
+        applyMiddleware(thunk)
+      )
+      store.dispatch(channels.actions.createChannel())
+      let range = _.range(16)
+      _.values(store.getState().blips).forEach((blip) => {
+        if (typeof blip.beat === 'number')
+          range = range.filter(i => i !== blip.beat)
+      })
+      expect(range).toEqual([])
+    })
+
     it("Removes a channel.", () => {
       const stateBefore = {
         1: {id: 1},
