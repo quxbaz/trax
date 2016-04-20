@@ -167,7 +167,7 @@ describe("channel", () => {
     })
 
     it("Toggles mute on a channel.", () => {
-      const stateBefore = {1: {}}
+      const stateBefore = {1: {mute: false}}
       const action = channels.actions.toggleMuteChannel(1)
       const stateAfter = {1: {mute: true}}
       expect(
@@ -175,11 +175,11 @@ describe("channel", () => {
       ).toEqual(stateAfter)
       expect(
         channels.reducer(stateAfter, action)
-      ).toEqual({1: {mute: false}})
+      ).toEqual(stateBefore)
     })
 
     it("Toggles solo on a channel.", () => {
-      const stateBefore = {1: {}}
+      const stateBefore = {1: {solo: false}}
       const action = channels.actions.toggleSoloChannel(1)
       const stateAfter = {1: {solo: true}}
       expect(
@@ -187,7 +187,7 @@ describe("channel", () => {
       ).toEqual(stateAfter)
       expect(
         channels.reducer(stateAfter, action)
-      ).toEqual({1: {solo: false}})
+      ).toEqual(stateBefore)
     })
 
   })
