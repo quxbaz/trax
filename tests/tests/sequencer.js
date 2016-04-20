@@ -69,42 +69,6 @@ describe("sequencer", () => {
       ).toEqual(stateAfter)
     })
 
-    it("Adds a channel.", () => {
-
-      const store = createStore(
-        combineReducers({
-          sequencer: sequencer.reducer,
-          channels: channels.reducer
-        }),
-        applyMiddleware(thunk)
-      )
-
-      store.dispatch(
-        sequencer.actions.createSequencer({id: 0})
-      )
-
-      store.dispatch(
-        sequencer.actions.addChannel({id: 1, mute: true})
-      )
-
-      const state = store.getState()
-
-      expect(state.sequencer).toEqual({
-        ...initialState,
-        id: 0,
-        channels: [1],
-      })
-
-      expect(state.channels).toEqual({
-        1: {
-          ...channelInitialState,
-          id: 1,
-          mute: true
-        }
-      })
-
-    })
-
     it("Removes a channel.", () => {
       const stateBefore = {
         channels: [1, 2]
