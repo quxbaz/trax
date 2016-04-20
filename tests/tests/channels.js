@@ -141,6 +141,45 @@ describe("channel", () => {
       ).toEqual(stateAfter)
     })
 
+    it("Archives a channel.", () => {
+      const stateBefore = {
+        1: {archived: false},
+        2: {}
+      }
+      const action = channels.actions.archiveChannel(1)
+      const stateAfter = {
+        1: {archived: true},
+        2: {}
+      }
+      expect(
+        channels.reducer(stateBefore, action)
+      ).toEqual(stateAfter)
+    })
+
+    it("Toggles mute on a channel.", () => {
+      const stateBefore = {1: {}}
+      const action = channels.actions.toggleMuteChannel(1)
+      const stateAfter = {1: {mute: true}}
+      expect(
+        channels.reducer(stateBefore, action)
+      ).toEqual(stateAfter)
+      expect(
+        channels.reducer(stateAfter, action)
+      ).toEqual({1: {mute: false}})
+    })
+
+    it("Toggles solo on a channel.", () => {
+      const stateBefore = {1: {}}
+      const action = channels.actions.toggleSoloChannel(1)
+      const stateAfter = {1: {solo: true}}
+      expect(
+        channels.reducer(stateBefore, action)
+      ).toEqual(stateAfter)
+      expect(
+        channels.reducer(stateAfter, action)
+      ).toEqual({1: {solo: false}})
+    })
+
   })
 
   describe("selectors", () => {
