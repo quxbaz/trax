@@ -92,7 +92,7 @@ describe("channel", () => {
 
     })
 
-    it("Child blips inherit the sample property.", () => {
+    it("Child blips inherit the sample and color property.", () => {
       const store = createStore(
         combineReducers({
           channels: channels.reducer,
@@ -101,11 +101,12 @@ describe("channel", () => {
         applyMiddleware(thunk)
       )
       store.dispatch(channels.actions.createChannel({
-        sample: 'hihat'
+        sample: 'hihat',
+        color: 'blue'
       }))
       expect(
         _.values(store.getState().blips).every(
-          blip => blip.sample === 'hihat'
+          blip => blip.sample === 'hihat' && blip.color === 'blue'
         )
       ).toBe(true)
     })
