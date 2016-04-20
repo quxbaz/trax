@@ -66,6 +66,24 @@ describe("blip", () => {
 
     })
 
+    describe("getById()", () => {
+
+      it("Gets a blip by id.", () => {
+        const state = {
+          blips: {
+            1: {sample: 'snare'},
+            2: {}
+          }
+        }
+        const result = {sample: 'snare'}
+        expect(
+          blips.selectors.getById(1)(state)
+        ).toEqual(result)
+      })
+
+    })
+
+
     describe("getSome()", () => {
 
       it("Gets blips by id.", () => {
