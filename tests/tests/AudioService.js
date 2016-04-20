@@ -37,7 +37,8 @@ describe("AudioService", function() {
       type: blips.actionTypes.CREATE_BLIP,
       payload: {
         id: 0,
-        sample: 'hihat'
+        sample: 'hihat',
+        mute: false
       }
     })[0]
     audioService.play(state)
