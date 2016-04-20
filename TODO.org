@@ -1,1 +1,5 @@
 Todo
+
+- Set beat prop on newly blips
+
+- Fix the problem of addChannel not creating blips

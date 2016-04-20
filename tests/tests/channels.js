@@ -2,7 +2,7 @@ import _ from 'lodash'
 import expect from 'expect'
 import {createStore, applyMiddleware, combineReducers} from 'redux'
 import thunk from 'redux-thunk'
-import {channels, blips} from 'trax'
+import {sequencer, channels, blips} from 'trax'
 import util from 'trax/lib/util'
 import {initialState} from 'trax/lib/channels/reducer'
 
@@ -97,6 +97,20 @@ describe("channel", () => {
           blip => blip.sample === 'hihat'
         )
       ).toBe(true)
+    })
+
+    it("Removes a channel.", () => {
+      const stateBefore = {
+        1: {id: 1},
+        2: {id: 2}
+      }
+      const action = sequencer.actions.removeChannel(1)
+      const stateAfter = {
+        2: {id: 2}
+      }
+      expect(
+        channels.reducer(stateBefore, action)
+      ).toEqual(stateAfter)
     })
 
   })
