@@ -5,6 +5,7 @@ import thunk from 'redux-thunk'
 import {sequencer, channels, blips} from 'trax'
 import util from 'trax/lib/util'
 import {initialState} from 'trax/lib/channels/reducer'
+import {initialState as blipInitialState} from 'trax/lib/blips/reducer'
 
 describe("channel", () => {
 
@@ -75,6 +76,16 @@ describe("channel", () => {
           state => state.id
         )
       ).toEqual(_.range(16))
+
+      const storeBlips = store.getState().blips
+      _.keys(storeBlips).forEach((key) => {
+        const blip = storeBlips[key]
+        expect(blip).toEqual({
+          ...blipInitialState,
+          beat: parseInt(key),
+          id: parseInt(key)
+        })
+      })
 
       // Restore uuid function
       util.uuid = uuid
