@@ -214,6 +214,23 @@ describe("channel", () => {
 
     })
 
+    describe("getById()", () => {
+
+      it("Gets a channel by id.", () => {
+        const state = {
+          channels: {
+            1: {sample: 'snare'},
+            2: {}
+          }
+        }
+        const result = {sample: 'snare'}
+        expect(
+          channels.selectors.getById(1)(state)
+        ).toEqual(result)
+      })
+
+    })
+
     describe("getEnabled()", () => {
 
       it("Gets channels that are not mute.", () => {
