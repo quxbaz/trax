@@ -1,20 +1,5 @@
+import {fetchSample} from '../test-util'
 import {blips, AudioService} from 'trax'
-
-function decodeAudioData(audioContext, audioBuffer) {
-  return new Promise(resolve => {
-    audioContext.decodeAudioData(audioBuffer, (decoded) =>
-      resolve(decoded)
-    )
-  })
-}
-
-function fetchSample(audioContext, url) {
-  return fetch(url).then((response) =>
-    response.arrayBuffer()
-  ).then((buffer) =>
-    decodeAudioData(audioContext, buffer)
-  )
-}
 
 describe("AudioService", function() {
 

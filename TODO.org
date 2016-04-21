@@ -5,3 +5,4 @@ Todo
   - More accuracy (don't depend on setTimeout)
   - Alternative to webworker?
   - Browser/node compatible
+- Optimize Player tick cycle
