@@ -62,7 +62,7 @@ describe("sequencer", () => {
 
     it("Steps the beat forward.", () => {
       const stateBefore = {beats: 16, currentBeat: 0}
-      const action = sequencer.actions.step()
+      const action = sequencer.actions.tick()
       const stateAfter = {beats: 16, currentBeat: 1}
       expect(
         sequencer.reducer(stateBefore, action)
@@ -71,7 +71,7 @@ describe("sequencer", () => {
 
     it("Cycles the beat back to 0 after the last beat.", () => {
       const stateBefore = {beats: 16, currentBeat: 15}
-      const action = sequencer.actions.step()
+      const action = sequencer.actions.tick()
       const stateAfter = {beats: 16, currentBeat: 0}
       expect(
         sequencer.reducer(stateBefore, action)
