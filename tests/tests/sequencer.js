@@ -30,7 +30,7 @@ describe("sequencer", () => {
       ).toEqual(stateAfter)
     })
 
-    it("Plays", () => {
+    it("Plays.", () => {
       const stateBefore = {playing: false}
       const action = sequencer.actions.play()
       const stateAfter = {playing: true}
@@ -39,13 +39,25 @@ describe("sequencer", () => {
       ).toEqual(stateAfter)
     })
 
-    it("Pauses", () => {
+    it("Pauses.", () => {
       const stateBefore = {playing: true}
       const action = sequencer.actions.pause()
       const stateAfter = {playing: false}
       expect(
         sequencer.reducer(stateBefore, action)
       ).toEqual(stateAfter)
+    })
+
+    it("Toggles playing.", () => {
+      const stateBefore = {playing: false}
+      const action = sequencer.actions.togglePlay()
+      const stateAfter = {playing: true}
+      expect(
+        sequencer.reducer(stateBefore, action)
+      ).toEqual(stateAfter)
+      expect(
+        sequencer.reducer(stateAfter, action)
+      ).toEqual(stateBefore)
     })
 
     it("Steps the beat forward.", () => {
