@@ -214,6 +214,27 @@ describe("channel", () => {
 
     })
 
+    describe("getEnabled()", () => {
+
+      it("Gets channels that are not mute.", () => {
+        const state = {
+          channels: {
+            1: {id: 1, mute: false},
+            2: {id: 2, mute: false},
+            3: {id: 3, mute: true}
+          }
+        }
+        const result = [
+          {id: 1, mute: false},
+          {id: 2, mute: false}
+        ]
+        expect(
+          channels.selectors.getEnabled(state)
+        ).toEqual(result)
+      })
+
+    })
+
   })
 
 })
