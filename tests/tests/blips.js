@@ -93,26 +93,8 @@ describe("blip", () => {
         ).toEqual(result)
       })
 
-    })
+      it("Memoizes.", () => {
 
-
-    describe("getSome()", () => {
-
-      it("Gets blips by id.", () => {
-        const state = {
-          blips: {
-            1: {id:1},
-            2: {id:2},
-            3: {id:3}
-          }
-        }
-        const result = [
-          {id: 1},
-          {id: 3}
-        ]
-        expect(
-          blips.selectors.getSome([1, 3])(state)
-        ).toEqual(result)
       })
 
     })
