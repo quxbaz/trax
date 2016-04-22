@@ -19,6 +19,7 @@
     "lodash.times": "^4.1.0",
     "lodash.values": "^4.1.0",
     "node-uuid": "^1.4.7",
+    "reselect": "^2.5.1",
     "timer": "git+https://github.com/quxbaz/timer.git"
   },
   "devDependencies": {
