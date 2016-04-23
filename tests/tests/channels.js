@@ -210,56 +210,82 @@ describe("channel", () => {
 
     describe("toggleBlipAt", () => {
 
+      let store
+
+      beforeEach(() => {
+        store = createStore(
+          combineReducers({
+            channels: channels.reducer,
+            blips: blips.reducer
+          }),
+          applyMiddleware(thunk)
+        )
+      })
+
       it("Toggles an existing blip at a position.", () => {
-        const stateBefore = {
-          1: initialState,
-          blips: util.replaceAt(initalState, 15, blipInitialState)
-        }
+        store.dispatch(blips.actions.createBlip({id: 'foo'}))
+        store.dispatch(channels.actions.createChannel({
+          id: 1,
+          blips: util.replaceAt(initialState.blips, 15, 'foo')
+        }))
         const action = channels.actions.toggleBlipAt(1, 15)
-        const stateAfter = {
+        const channelsAfter = {
           1: {
             ...initialState,
-            blips: [
-              undefined, undefined, undefined, undefined,
-              undefined, undefined, undefined, undefined,
-              undefined, undefined, undefined, undefined,
-              undefined, undefined, undefined, {...blipInitialState, mute: true}
-            ]
+            id: 1,
+            blips: util.replaceAt(initialState.blips, 15, 'foo')
           }
         }
+        store.dispatch(action)
         expect(
-          channels.reducer(stateBefore, action)
-        ).toEqual(stateAfter)
-        expect(
-          channels.reducer(stateAfter, action)
-        ).toEqual(stateBefore)
+          store.getState()
+        ).toEqual({
+          channels: channelsAfter,
+          blips: {
+            foo: {...blipInitialState, id: 'foo', mute: true}
+          }
+        })
       })
 
       it("Creates a blip at a position with a beat set that inherits color and sample.", () => {
+
         const uuid = util.uuid
         util.uuid = () => 42
         const color = 'red'
         const sample = 'kick'
-        const beat = 3
-        const stateBefore = {
-           1: {...initialState, color, sample}
-         }
-         const action = channels.actions.toggleBlipAt(1, beat)
-         const stateAfter = {
-           1: {
-             ...initialState,
-             blips: [
-               undefined, undefined, undefined, {...blipInitialState, color, sample, beat, id: 42},
-               undefined, undefined, undefined, undefined,
-               undefined, undefined, undefined, undefined,
-               undefined, undefined, undefined, undefined
-             ]
-           }
-         }
-         expect(
-           channels.reducer(stateBefore, action)
-         ).toEqual(stateAfter)
+        const beat = 0
+
+        store.dispatch(channels.actions.createChannel({
+          id: 1,
+          color,
+          sample
+        }))
+
+        const action = channels.actions.toggleBlipAt(1, beat)
+
+        const channelsAfter = {
+          1: {
+            ...initialState,
+            id: 1,
+            color,
+            sample,
+            blips: util.replaceAt(initialState.blips, beat, 42)
+          }
+        }
+
+        store.dispatch(action)
+
+        expect(
+          store.getState()
+        ).toEqual({
+          channels: channelsAfter,
+          blips: {
+            42: {...blipInitialState, id: 42, beat, color, sample, mute: false}
+          }
+        })
+
         util.uuid = uuid
+
       })
 
     })
