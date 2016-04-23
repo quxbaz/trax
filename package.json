@@ -1,6 +1,6 @@
 {
   "name": "trax",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Music sequencer built with Redux architecture",
   "main": "index.js",
   "repository": {
