@@ -29,19 +29,6 @@ describe("blip", () => {
       ).toEqual(stateAfter)
     })
 
-    it("Creates many blips.", () => {
-      const stateBefore = undefined
-      const action = blips.actions.createManyBlips([{id: 0}, {id: 1}, {id: 2, sample: 'snare'}])
-      const stateAfter = {
-        0: {...initialState, id: 0},
-        1: {...initialState, id: 1},
-        2: {...initialState, id: 2, sample: 'snare'}
-      }
-      expect(
-        blips.reducer(stateBefore, action)
-      ).toEqual(stateAfter)
-    })
-
     it("Toggles mute on blip.", () => {
       const stateBefore = {1: {mute: false}}
       const action = blips.actions.toggleMuteBlip(1)
