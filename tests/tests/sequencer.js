@@ -9,7 +9,7 @@ describe("sequencer", () => {
     it("Gets the initial state.", () => {
       const stateBefore = undefined
       const action = {}
-      const stateAfter = {}
+      const stateAfter = initialState
       expect(
         sequencer.reducer(stateBefore, action)
       ).toEqual(stateAfter)
@@ -17,10 +17,7 @@ describe("sequencer", () => {
 
     it("Creates a sequencer.", () => {
       const stateBefore = undefined
-      const action = {
-        type: sequencer.actionTypes.CREATE_SEQUENCER,
-        payload: {id: 0}
-      }
+      const action = sequencer.actions.createSequencer({id: 0})
       const stateAfter = {
         ...initialState,
         id: 0
