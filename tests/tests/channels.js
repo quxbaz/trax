@@ -208,7 +208,59 @@ describe("channel", () => {
       ).toEqual(stateAfter)
     })
 
-    describe("toggleBlipAtPosition", () => {
+    describe("toggleBlipAt", () => {
+
+      it("Toggles an existing blip at a position.", () => {
+        const stateBefore = {
+          1: initialState,
+          blips: util.replaceAt(initalState, 15, blipInitialState)
+        }
+        const action = channels.actions.toggleBlipAt(1, 15)
+        const stateAfter = {
+          1: {
+            ...initialState,
+            blips: [
+              undefined, undefined, undefined, undefined,
+              undefined, undefined, undefined, undefined,
+              undefined, undefined, undefined, undefined,
+              undefined, undefined, undefined, {...blipInitialState, mute: true}
+            ]
+          }
+        }
+        expect(
+          channels.reducer(stateBefore, action)
+        ).toEqual(stateAfter)
+        expect(
+          channels.reducer(stateAfter, action)
+        ).toEqual(stateBefore)
+      })
+
+      it("Creates a blip at a position with a beat set that inherits color and sample.", () => {
+        const uuid = util.uuid
+        util.uuid = () => 42
+        const color = 'red'
+        const sample = 'kick'
+        const beat = 3
+        const stateBefore = {
+           1: {...initialState, color, sample}
+         }
+         const action = channels.actions.toggleBlipAt(1, beat)
+         const stateAfter = {
+           1: {
+             ...initialState,
+             blips: [
+               undefined, undefined, undefined, {...blipInitialState, color, sample, beat, id: 42},
+               undefined, undefined, undefined, undefined,
+               undefined, undefined, undefined, undefined,
+               undefined, undefined, undefined, undefined
+             ]
+           }
+         }
+         expect(
+           channels.reducer(stateBefore, action)
+         ).toEqual(stateAfter)
+        util.uuid = uuid
+      })
 
     })
 
