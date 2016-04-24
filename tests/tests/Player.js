@@ -37,15 +37,17 @@ describe("Player", () => {
       })
     )
 
-    store.getState().channels[1].blips.forEach((id) => {
-      store.dispatch(blips.actions.toggleMuteBlip(id))
+    store.getState().channels[1].blips.forEach((id, i) => {
+      store.dispatch(
+        channels.actions.toggleBlipAt(1, i)
+      )
     })
 
     let i = 0
     const play = audioService.play.bind(audioService)
     audioService.play = (state) => {
       play(state)
-      if (i == 8) {
+      if (i == 4) {
         player.pause()
         done()
       }
