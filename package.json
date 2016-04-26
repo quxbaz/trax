@@ -18,8 +18,8 @@
     "lodash.pick": "^4.2.0",
     "lodash.times": "^4.1.0",
     "lodash.values": "^4.1.0",
-    "node-uuid": "^1.4.7",
-    "timer": "git+https://github.com/quxbaz/timer.git"
+    "timer": "git+https://github.com/quxbaz/timer.git",
+    "web-uuid": "git+https://github.com/quxbaz/web-uuid.git"
   },
   "devDependencies": {
     "babel-core": "^6.4.0",
