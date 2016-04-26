@@ -99,15 +99,15 @@ describe("channel", () => {
       const stateBefore = {
         1: initialState
       }
-      const action = channels.actions.setBlipAt(1, 2, 'foobar')
+      const action = channels.actions.setBlipAt(1, 2, 'fo')
       const stateAfter = {
         1: {
           ...initialState,
           blips: [
-            undefined, undefined, 'foobar', undefined,
-            undefined, undefined, undefined, undefined,
-            undefined, undefined, undefined, undefined,
-            undefined, undefined, undefined, undefined
+            null, null, 'fo', null,
+            null, null, null, null,
+            null, null, null, null,
+            null, null, null, null
           ]
         }
       }
