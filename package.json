@@ -14,10 +14,7 @@
   },
   "homepage": "https://github.com/quxbaz/trax#readme",
   "dependencies": {
-    "lodash.omit": "^4.2.1",
-    "lodash.pick": "^4.2.0",
-    "lodash.times": "^4.1.0",
-    "lodash.values": "^4.1.0",
+    "qux": "git+https://github.com/quxbaz/qux.git",
     "timer": "git+https://github.com/quxbaz/timer.git",
     "web-uuid": "git+https://github.com/quxbaz/web-uuid.git"
   },

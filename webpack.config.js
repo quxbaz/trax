@@ -21,11 +21,10 @@ module.exports = {
         test: /\.js$/,
         loader: 'babel',
         include: [
-          join(dirname, 'node_modules/sentry'),
-          join(dirname, 'node_modules/stateful'),
-          join(dirname, 'test'),
           join(dirname, 'index.js'),
-          join(dirname, 'lib')
+          join(dirname, 'lib'),
+          join(dirname, 'test'),
+          join(dirname, 'node_modules/qux')
         ],
         query: {
           presets: ['es2015'],

@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import expect from 'expect'
 import {createStore, applyMiddleware, combineReducers} from 'redux'
 import thunk from 'redux-thunk'
