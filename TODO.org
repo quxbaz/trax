@@ -7,3 +7,6 @@ Todo
   - Browser/node compatible
 
 - Optimize Player tick cycle
+
+- channels.selectors.getEnabled should not get archived, muted,
+  non-soloing channels (if in solo mode)
