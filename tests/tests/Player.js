@@ -1,7 +1,7 @@
 import {createStore, combineReducers, applyMiddleware} from 'redux'
 import thunk from 'redux-thunk'
 import {fetchSample} from '../test-util'
-import {reducers, sequencer, channels, blips, AudioService, Player} from 'trax'
+import {reducers, sequencer, channels, blips, presets, AudioService, Player} from 'trax'
 
 describe("Player", () => {
 
@@ -19,7 +19,7 @@ describe("Player", () => {
     audioService = new AudioService(audioContext, {hihat})
   })
 
-  it("Plays a bunch of hihat sounds sequentially.", (done) => {
+  it("Plays a bunch of hihat sounds sequentially.", () => {
 
     const store = createStore(
       combineReducers(reducers),
@@ -31,9 +31,14 @@ describe("Player", () => {
     store.dispatch(sequencer.actions.createSequencer({playing: true}))
 
     store.dispatch(
+      presets.actions.createPreset({id: 44, sample: 'hihat'})
+    )
+
+    store.dispatch(
       channels.actions.createChannel({
+        id: 1,
         sample: 'hihat',
-        id: 1
+        preset: 44,
       })
     )
 
@@ -43,18 +48,19 @@ describe("Player", () => {
       )
     })
 
-    let i = 0
+    let offset =  0
     const play = audioService.play.bind(audioService)
     audioService.play = (state) => {
-      play(state)
-      if (i == 4) {
-        player.pause()
-        done()
-      }
-      i++
+      play({...state, offset})
+      offset += 50
     }
 
-    player.start()
+    setTimeout(() => {
+      player.timer.trigger('tick')
+      player.timer.trigger('tick')
+      player.timer.trigger('tick')
+      player.timer.trigger('tick')
+    }, 200)
 
   })
 

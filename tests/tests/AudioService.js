@@ -22,17 +22,19 @@ describe("AudioService", function() {
       type: blips.actionTypes.CREATE_BLIP,
       payload: {
         id: 0,
-        sample: 'hihat',
-        mute: false
+        mute: false,
       }
     })[0]
     const mixable = mixables.reducer(undefined, {
       type: mixables.actionTypes.CREATE_MIXABLE,
-      payload: {id: 0}
+      payload: {
+        id: 0,
+        sample: 'hihat',
+      },
     })[0]
     const state = {...blip, ...mixable}
     audioService.play(state)
-    audioService.play({...state, offset: 100})
+    audioService.play({...state, offset: 50})
   })
 
 })
