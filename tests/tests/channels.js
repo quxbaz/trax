@@ -1,10 +1,11 @@
 import expect from 'expect'
 import {createStore, applyMiddleware, combineReducers} from 'redux'
 import thunk from 'redux-thunk'
-import {sequencer, channels, blips} from 'trax'
+import {sequencer, channels, blips, presets, mixables} from 'trax'
 import util from 'trax/lib/util'
 import {initialState} from 'trax/lib/channels/reducer'
 import {initialState as blipInitialState} from 'trax/lib/blips/reducer'
+import {initialState as presetInitialState} from 'trax/lib/presets/reducer'
 
 describe("channels", () => {
 
@@ -155,18 +156,36 @@ describe("channels", () => {
         })
       })
 
-      it("Creates a blip at a position with a beat set that inherits color and sample.", () => {
+      it("Creates a blip at a position with a beat set that inherits color, sample, and mixable.", () => {
 
         const uuid = util.uuid
         util.uuid = () => 42
+
+        store = createStore(
+          combineReducers({
+            channels: channels.reducer,
+            blips: blips.reducer,
+            presets: presets.reducer,
+          }),
+          applyMiddleware(thunk)
+        )
+
+        const beat = 0
         const color = 'red'
         const sample = 'kick'
-        const beat = 0
+        const mixable = 'mixableid'
+        const preset = 'presetid'
+
+        store.dispatch(presets.actions.createPreset({
+          id: preset,
+          mixable,
+        }))
 
         store.dispatch(channels.actions.createChannel({
           id: 1,
           color,
-          sample
+          sample,
+          preset: preset,
         }))
 
         const action = channels.actions.toggleBlipAt(1, beat)
@@ -175,9 +194,8 @@ describe("channels", () => {
           1: {
             ...initialState,
             id: 1,
-            color,
-            sample,
-            blips: util.replaceAt(initialState.blips, beat, 42)
+            color, sample, preset,
+            blips: util.replaceAt(initialState.blips, beat, 42),
           }
         }
 
@@ -188,7 +206,18 @@ describe("channels", () => {
         ).toEqual({
           channels: channelsAfter,
           blips: {
-            42: {...blipInitialState, id: 42, beat, color, sample, mute: false}
+            42: {
+              ...blipInitialState,
+              id: 42, mute: false, beat,
+              color, sample, mixable,
+            }
+          },
+          presets: {
+            [preset]: {
+              ...presetInitialState,
+              id: preset,
+              mixable,
+            }
           }
         })
 
