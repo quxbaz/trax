@@ -1,5 +1,5 @@
 import {fetchSample} from '../test-util'
-import {blips, AudioService} from 'trax'
+import {blips, mixables, AudioService} from 'trax'
 
 describe("AudioService", function() {
 
@@ -18,7 +18,7 @@ describe("AudioService", function() {
   })
 
   it("Should play two audible hihat sounds (this test will always pass).", () => {
-    const state = blips.reducer(undefined, {
+    const blip = blips.reducer(undefined, {
       type: blips.actionTypes.CREATE_BLIP,
       payload: {
         id: 0,
@@ -26,6 +26,11 @@ describe("AudioService", function() {
         mute: false
       }
     })[0]
+    const mixable = mixables.reducer(undefined, {
+      type: mixables.actionTypes.CREATE_MIXABLE,
+      payload: {id: 0}
+    })[0]
+    const state = {...blip, ...mixable}
     audioService.play(state)
     audioService.play({...state, offset: 100})
   })
