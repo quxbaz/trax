@@ -1,6 +1,10 @@
 import expect from 'expect'
-import {presets} from 'trax'
+import {createStore, applyMiddleware, combineReducers} from 'redux'
+import thunk from 'redux-thunk'
+import {presets, mixables} from 'trax'
+import util from 'trax/lib/util'
 import {initialState} from 'trax/lib/presets/reducer'
+import {initialState as mixableInitialState} from 'trax/lib/mixables/reducer'
 
 describe("presets", () => {
 
@@ -15,18 +19,80 @@ describe("presets", () => {
       ).toEqual(stateAfter)
     })
 
-    it("Creates a preset.", () => {
-      const stateBefore = undefined
-      const action = presets.actions.createPreset({id: 0})
-      const stateAfter = {
-        0: {
-          ...initialState,
-          id: 0
-        }
-      }
-      expect(
-        presets.reducer(stateBefore, action)
-      ).toEqual(stateAfter)
+    describe("createPreset", () => {
+
+      let store
+
+      beforeEach(() => {
+        store = createStore(
+          combineReducers({
+            presets: presets.reducer,
+            mixables: mixables.reducer,
+          }),
+          applyMiddleware(thunk)
+        )
+      })
+
+      it("Creates a preset and a default mixable that inherits some properties.", () => {
+
+        // Mock util.uuid
+        const uuid = util.uuid
+        util.uuid = () => 42
+
+        store.dispatch(presets.actions.createPreset({
+          id: 1,
+          sample: 'snare'
+        }))
+
+        expect(
+          store.getState()
+        ).toEqual({
+          presets: {
+            1: {
+                ...initialState,
+              id: 1,
+              sample: 'snare',
+              mixable: 42,
+            }
+          },
+          mixables: {
+            42: {
+              ...mixableInitialState,
+              id: 42,
+              sample: 'snare',
+            }
+          }
+        })
+
+        // Restore util.uuid
+        util.uuid = uuid
+
+      })
+
+      it("Does not create a new mixable if one is provided to the action.", () => {
+
+        store.dispatch(presets.actions.createPreset({
+          id: 1,
+          sample: 'snare',
+          mixable: 33,
+        }))
+
+        expect(
+          store.getState()
+        ).toEqual({
+          presets: {
+            1: {
+                ...initialState,
+              id: 1,
+              sample: 'snare',
+              mixable: 33,
+            }
+          },
+          mixables: {},
+        })
+
+      })
+
     })
 
   })
