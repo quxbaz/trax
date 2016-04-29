@@ -156,7 +156,7 @@ describe("channels", () => {
         })
       })
 
-      it("Creates a blip at a position with a beat set that inherits color, sample, and mixable.", () => {
+      it("Creates a blip at a position with a beat set that inherits color, and mixable.", () => {
 
         const uuid = util.uuid
         util.uuid = () => 42
@@ -172,7 +172,6 @@ describe("channels", () => {
 
         const beat = 0
         const color = 'red'
-        const sample = 'kick'
         const mixable = 'mixableid'
         const preset = 'presetid'
 
@@ -184,7 +183,6 @@ describe("channels", () => {
         store.dispatch(channels.actions.createChannel({
           id: 1,
           color,
-          sample,
           preset: preset,
         }))
 
@@ -194,7 +192,7 @@ describe("channels", () => {
           1: {
             ...initialState,
             id: 1,
-            color, sample, preset,
+            color, preset,
             blips: util.replaceAt(initialState.blips, beat, 42),
           }
         }
@@ -209,7 +207,7 @@ describe("channels", () => {
             42: {
               ...blipInitialState,
               id: 42, mute: false, beat,
-              color, sample, mixable,
+              color, mixable,
             }
           },
           presets: {
@@ -256,11 +254,11 @@ describe("channels", () => {
       it("Gets a channel by id.", () => {
         const state = {
           channels: {
-            1: {sample: 'snare'},
+            1: {title: 'whoa'},
             2: {}
           }
         }
-        const result = {sample: 'snare'}
+        const result = {title: 'whoa'}
         expect(
           channels.selectors.getById(1)(state)
         ).toEqual(result)
