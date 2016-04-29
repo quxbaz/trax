@@ -2,7 +2,7 @@ import expect from 'expect'
 import {blips} from 'trax'
 import {initialState} from 'trax/lib/blips/reducer'
 
-describe("blip", () => {
+describe("blips", () => {
 
   describe("reducer", () => {
 

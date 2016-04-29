@@ -6,7 +6,7 @@ import util from 'trax/lib/util'
 import {initialState} from 'trax/lib/channels/reducer'
 import {initialState as blipInitialState} from 'trax/lib/blips/reducer'
 
-describe("channel", () => {
+describe("channels", () => {
 
   describe("reducer", () => {
 
