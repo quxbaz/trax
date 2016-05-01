@@ -29,6 +29,27 @@ describe("mixables", () => {
       ).toEqual(stateAfter)
     })
 
+    it("Mixes a mixable.", () => {
+      const stateBefore = {
+        0: {
+          ...initialState,
+          id: 0
+        }
+      }
+      const action = mixables.actions.mix(0, {gain: 5, rate: 4})
+      const stateAfter = {
+        0: {
+          ...initialState,
+          id: 0,
+          gain: 5,
+          rate: 4
+        }
+      }
+      expect(
+        mixables.reducer(stateBefore, action)
+      ).toEqual(stateAfter)
+    })
+
   })
 
   describe("selectors", () => {
