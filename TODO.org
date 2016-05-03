@@ -10,3 +10,20 @@ Todo
 
 - channels.selectors.getEnabled should not get archived, muted,
   non-soloing channels (if in solo mode)
+
+- Presets
+  - [X] Should create a mixable
+  - [X] Deleting preset should trigger deleting mixable
+
+- Mixables
+  - [X] Setting/mixing mixables
+
+- Channels
+  - [X] Remove sample prop
+
+- Blips
+  - [X] Inherit mixable from channel
+  - [X] Remove mixable props
+
+- Player
+  - [X] Should play using mixable/preset

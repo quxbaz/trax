@@ -285,6 +285,41 @@ describe("channels", () => {
         ).toEqual(result)
       })
 
+      it("Gets channels that are not archived.", () => {
+        const state = {
+          channels: {
+            1: {id: 1, mute: false, archived: true},
+            2: {id: 2, mute: false, archived: false}
+          }
+        }
+        const result = [
+          {id: 2, mute: false, archived: false}
+        ]
+        expect(
+          channels.selectors.getEnabled(state)
+        ).toEqual(result)
+      })
+
+      it("Gets only channels that are soloing even if they are mute, but does not get archived channels.", () => {
+        const state = {
+          channels: {
+            1: {id: 1, mute: false, solo: true},
+            2: {id: 2, mute: true, solo: true},
+            3: {id: 3, solo: true},
+            4: {id: 4, solo: false},
+            5: {id: 5, solo: true, archived: true}
+          }
+        }
+        const result = [
+          {id: 1, mute: false, solo: true},
+          {id: 2, mute: true, solo: true},
+          {id: 3, solo: true}
+        ]
+        expect(
+          channels.selectors.getEnabled(state)
+        ).toEqual(result)
+      })
+
     })
 
   })
