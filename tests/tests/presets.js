@@ -95,6 +95,70 @@ describe("presets", () => {
 
     })
 
+    describe("removePreset", () => {
+
+      let store
+
+      beforeEach(() => {
+        store = createStore(
+          combineReducers({
+            presets: presets.reducer,
+            mixables: mixables.reducer,
+          }),
+          applyMiddleware(thunk)
+        )
+      })
+
+      it("Removes a preset and its mixable.", () => {
+
+        store.dispatch(
+          mixables.actions.createMixable({id: 0})
+        )
+
+        store.dispatch(
+          mixables.actions.createMixable({id: 1})
+        )
+
+        store.dispatch(
+          presets.actions.createPreset({id: 2, mixable: 0})
+        )
+
+        // Make sure initial conditions are set
+        expect(store.getState()).toEqual({
+          mixables: {
+            0: {
+              ...mixableInitialState,
+              id: 0
+            },
+            1: {
+              ...mixableInitialState,
+              id: 1
+            }
+          },
+          presets: {
+            2: {
+              ...initialState,
+              id: 2,
+              mixable: 0
+            }
+          }
+        })
+
+        store.dispatch(
+          presets.actions.removePreset(2)
+        )
+
+        expect(store.getState()).toEqual({
+          mixables: {
+            1: {...mixableInitialState, id: 1}
+          },
+          presets: {}
+        })
+
+      })
+
+    })
+
   })
 
   describe("selectors", () => {
