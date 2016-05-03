@@ -29,6 +29,20 @@ describe("mixables", () => {
       ).toEqual(stateAfter)
     })
 
+    it("Removes a mixable.", () => {
+      const stateBefore = {
+        1: {},
+        2: {}
+      }
+      const action = mixables.actions.removeMixable(1)
+      const stateAfter = {
+        2: {}
+      }
+      expect(
+        mixables.reducer(stateBefore, action)
+      ).toEqual(stateAfter)
+    })
+
     it("Mixes a mixable.", () => {
       const stateBefore = {
         0: {
