@@ -55,8 +55,21 @@ describe("channels", () => {
       }
       const action = channels.actions.archiveChannel(1)
       const stateAfter = {
-        1: {archived: true},
+        1: {archived: true, solo: false},
         2: {}
+      }
+      expect(
+        channels.reducer(stateBefore, action)
+      ).toEqual(stateAfter)
+    })
+
+    it("Archived channels set false to solo property.", () => {
+      const stateBefore = {
+        1: {archived: false, solo: true},
+      }
+      const action = channels.actions.archiveChannel(1)
+      const stateAfter = {
+        1: {archived: true, solo: false},
       }
       expect(
         channels.reducer(stateBefore, action)
