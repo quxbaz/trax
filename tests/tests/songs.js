@@ -59,11 +59,45 @@ describe("songs", () => {
     })
 
     it("Sets a channel at a cell.", () => {
-
+      const stateBefore = {
+        1: {
+          data: [
+            [null]
+          ]
+        },
+      }
+      const action = songs.actions.setCell(1, [0, 0], 'foo')
+      const stateAfter = {
+        1: {
+          data: [
+            ['foo']
+          ]
+        },
+      }
+      expect(
+        songs.reducer(stateBefore, action)
+      ).toEqual(stateAfter)
     })
 
     it("Empties a channel at a cell.", () => {
-
+      const stateBefore = {
+        1: {
+          data: [
+            ['foo']
+          ]
+        },
+      }
+      const action = songs.actions.emptyCell(1, [0, 0])
+      const stateAfter = {
+        1: {
+          data: [
+            [null]
+          ]
+        },
+      }
+      expect(
+        songs.reducer(stateBefore, action)
+      ).toEqual(stateAfter)
     })
 
   })
