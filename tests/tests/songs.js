@@ -62,18 +62,20 @@ describe("songs", () => {
       const stateBefore = {
         1: {
           data: [
-            [null]
+            [null, null],
+            [null, null, null],
           ],
-          cursor: [0, 0],
+          cursor: [2, 1],
         },
       }
       const action = songs.actions.setCell(1, 'foo')
       const stateAfter = {
         1: {
           data: [
-            ['foo']
+            [null, null],
+            [null, null, 'foo'],
           ],
-          cursor: [0, 0],
+          cursor: [2, 1],
         },
       }
       expect(
@@ -102,6 +104,23 @@ describe("songs", () => {
       expect(
         songs.reducer(stateBefore, action)
       ).toEqual(stateAfter)
+    })
+
+    it("Returns existing state when the cursor is null or undefined.", () => {
+      const stateBefore = {
+        1: {
+          data: [],
+          cursor: null,
+        },
+      }
+      songs.reducer(
+        stateBefore,
+        songs.actions.setCell(1)
+      )
+      songs.reducer(
+        stateBefore,
+        songs.actions.emptyCell(1)
+      )
     })
 
     it("Adds lines of data.", () => {
