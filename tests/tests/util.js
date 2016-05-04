@@ -29,4 +29,26 @@ describe("util", () => {
 
   })
 
+  describe("replaceAt2d", () => {
+
+    it("Replaces an item in a 2d array without mutating the array.", () => {
+
+      const arr = [
+        [1, 2, 3]
+      ]
+
+      const result = util.replaceAt2d(arr, [1, 0], 'foo')
+
+      expect(result).toEqual([
+        [1, 'foo', 3]
+      ])
+
+      expect(arr).toEqual([
+        [1, 2, 3]
+      ])
+
+    })
+
+  })
+
 })
