@@ -58,6 +58,56 @@ describe("songs", () => {
       ).toEqual(stateAfter)
     })
 
+    it("Moves the cursor down.", () => {
+      const stateBefore = {
+        1: {
+          cursor: [0, 0],
+          data: [
+            [null],
+            [null],
+          ]
+        },
+      }
+      const action = songs.actions.moveCursorDown(1)
+      const stateAfter = {
+        1: {
+          cursor: [0, 1],
+          data: [
+            [null],
+            [null],
+          ]
+        },
+      }
+      expect(
+        songs.reducer(stateBefore, action)
+      ).toEqual(stateAfter)
+    })
+
+    it("Does not move the cursor past the last line.", () => {
+      const stateBefore = {
+        1: {
+          cursor: [0, 1],
+          data: [
+            [null],
+            [null],
+          ]
+        },
+      }
+      const action = songs.actions.moveCursorDown(1)
+      const stateAfter = {
+        1: {
+          cursor: [0, 1],
+          data: [
+            [null],
+            [null],
+          ]
+        },
+      }
+      expect(
+        songs.reducer(stateBefore, action)
+      ).toEqual(stateAfter)
+    })
+
     it("Sets a channel at a cell.", () => {
       const stateBefore = {
         1: {
