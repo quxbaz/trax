@@ -6,7 +6,7 @@ import mixables from './lib/mixables'
 import editor from './lib/editor'
 import songs from './lib/songs'
 import AudioService from './lib/AudioService'
-import Player from './lib/Player'
+import AudioPlayer from './lib/AudioPlayer'
 
 const reducers = {
   sequencer: sequencer.reducer,
@@ -23,5 +23,5 @@ export {
   sequencer, channels, blips,
   presets, mixables,
   editor, songs,
-  AudioService, Player
+  AudioService, AudioPlayer
 }

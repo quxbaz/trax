@@ -6,8 +6,9 @@ import './tests/editor'
 import './tests/songs'
 import './tests/presets'
 import './tests/mixables'
+import './tests/player'
 import './tests/AudioService'
-import './tests/Player'
+import './tests/AudioPlayer'
 
 // mocha.allowUncaught()
 mocha.run()

@@ -1,9 +1,9 @@
 import {createStore, combineReducers, applyMiddleware} from 'redux'
 import thunk from 'redux-thunk'
 import {fetchSample} from '../test-util'
-import {reducers, sequencer, channels, blips, presets, AudioService, Player} from 'trax'
+import {reducers, sequencer, channels, blips, presets, AudioService, AudioPlayer} from 'trax'
 
-describe("Player", () => {
+describe("AudioPlayer", () => {
 
   const audioContext = new AudioContext()
   let audioService
@@ -26,7 +26,7 @@ describe("Player", () => {
       applyMiddleware(thunk)
     )
 
-    const player = new Player({audioService, store, tickInterval: 50})
+    const player = new AudioPlayer({audioService, store, tickInterval: 50})
 
     store.dispatch(sequencer.actions.createSequencer({playing: true}))
 
