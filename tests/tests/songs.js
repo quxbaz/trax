@@ -83,6 +83,22 @@ describe("songs", () => {
       ).toEqual(stateAfter)
     })
 
+    it("Does not do anything if the cursor does not exist.", () => {
+      const stateBefore = {
+        1: {
+          cursor: null,
+          data: [
+            [null],
+            [null],
+          ]
+        },
+      }
+      songs.reducer(
+        stateBefore,
+        songs.actions.moveCursorDown(1)
+      )
+    })
+
     it("Does not move the cursor past the last line.", () => {
       const stateBefore = {
         1: {
