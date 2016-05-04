@@ -63,15 +63,17 @@ describe("songs", () => {
         1: {
           data: [
             [null]
-          ]
+          ],
+          cursor: [0, 0],
         },
       }
-      const action = songs.actions.setCell(1, [0, 0], 'foo')
+      const action = songs.actions.setCell(1, 'foo')
       const stateAfter = {
         1: {
           data: [
             ['foo']
-          ]
+          ],
+          cursor: [0, 0],
         },
       }
       expect(
@@ -84,15 +86,17 @@ describe("songs", () => {
         1: {
           data: [
             ['foo']
-          ]
+          ],
+          cursor: [0, 0],
         },
       }
-      const action = songs.actions.emptyCell(1, [0, 0])
+      const action = songs.actions.emptyCell(1)
       const stateAfter = {
         1: {
           data: [
             [null]
-          ]
+          ],
+          cursor: [0, 0],
         },
       }
       expect(
