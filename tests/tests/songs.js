@@ -100,6 +100,29 @@ describe("songs", () => {
       ).toEqual(stateAfter)
     })
 
+    it("Adds lines of data.", () => {
+      const stateBefore = {
+        1: {
+          data: [],
+          channels: 8,
+        },
+      }
+      const action = songs.actions.addLines(1, 3)
+      const stateAfter = {
+        1: {
+          data: [
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+          ],
+          channels: 8,
+        },
+      }
+      expect(
+        songs.reducer(stateBefore, action)
+      ).toEqual(stateAfter)
+    })
+
   })
 
   describe("selectors", () => {
