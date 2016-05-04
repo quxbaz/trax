@@ -335,6 +335,33 @@ describe("channels", () => {
 
     })
 
+    describe("isSoloMode", () => {
+
+      it("Returns false if no channels are in solo mode.", () => {
+        const state = {
+          channels: {
+            0: {solo: false}
+          }
+        }
+        expect(
+          channels.selectors.isSoloMode(state)
+        ).toBe(false)
+      })
+
+      it("Returns true if any channels are in solo mode.", () => {
+        const state = {
+          channels: {
+            0: {solo: true},
+            1: {solo: false}
+          }
+        }
+        expect(
+          channels.selectors.isSoloMode(state)
+        ).toBe(true)
+      })
+
+    })
+
   })
 
 })
