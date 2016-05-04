@@ -5,6 +5,7 @@ import presets from './lib/presets'
 import mixables from './lib/mixables'
 import editor from './lib/editor'
 import songs from './lib/songs'
+import player from './lib/player'
 import AudioService from './lib/AudioService'
 import AudioPlayer from './lib/AudioPlayer'
 
@@ -23,5 +24,6 @@ export {
   sequencer, channels, blips,
   presets, mixables,
   editor, songs,
+  player,
   AudioService, AudioPlayer
 }
