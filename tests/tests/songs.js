@@ -43,8 +43,19 @@ describe("songs", () => {
       ).toEqual(stateAfter)
     })
 
-    it("Moves the cursor.", () => {
-
+    it("Sets the cursor.", () => {
+      const stateBefore = {
+        1: {id: 1},
+        2: {id: 2},
+      }
+      const action = songs.actions.setCursor(1, [1, 2])
+      const stateAfter = {
+        1: {id: 1, cursor: [1, 2]},
+        2: {id: 2},
+      }
+      expect(
+        songs.reducer(stateBefore, action)
+      ).toEqual(stateAfter)
     })
 
     it("Sets a channel at a cell.", () => {
