@@ -17,6 +17,7 @@ const reducers = {
   mixables: mixables.reducer,
   editor: editor.reducer,
   songs: songs.reducer,
+  player: player.reducer,
 }
 
 export {
