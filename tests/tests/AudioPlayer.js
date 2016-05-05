@@ -138,6 +138,7 @@ describe("AudioPlayer", () => {
 
     store.dispatch(
       songs.actions.createSong({
+        id: 'songid',
         data: [
           ['channel1'],
           ['channel2'],
@@ -148,9 +149,7 @@ describe("AudioPlayer", () => {
     )
 
     setTimeout(() => {
-      audioPlayer.playSong(
-        songs.selectors.getAll(store.getState())[0]
-      )
+      audioPlayer.playSong('songid')
     }, 1000)
 
   })
