@@ -27,6 +27,15 @@ describe("songPlayer", () => {
       ).toEqual(stateAfter)
     })
 
+    it("Sets a starting line to begin playing from.", () => {
+      const stateBefore = {}
+      const action = songPlayer.actions.setStart(2)
+      const stateAfter = {startLine: 2}
+      expect(
+        songPlayer.reducer(stateBefore, action)
+      ).toEqual(stateAfter)
+    })
+
   })
 
 })
