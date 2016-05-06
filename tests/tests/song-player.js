@@ -36,6 +36,15 @@ describe("songPlayer", () => {
       ).toEqual(stateAfter)
     })
 
+    it("Sets the currently playing line.", () => {
+      const stateBefore = {}
+      const action = songPlayer.actions.setCurrentPlayingLine(5)
+      const stateAfter = {currentPlayingLine: 5}
+      expect(
+        songPlayer.reducer(stateBefore, action)
+      ).toEqual(stateAfter)
+    })
+
     it("Resets the currently playing line.", () => {
       const stateBefore = {}
       const action = songPlayer.actions.resetCurrentPlayingLine()
