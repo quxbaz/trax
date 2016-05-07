@@ -15,7 +15,7 @@
   "homepage": "https://github.com/quxbaz/trax#readme",
   "dependencies": {
     "qux": "git+https://github.com/quxbaz/qux.git",
-    "timer": "git+https://github.com/quxbaz/timer.git",
+    "timer2": "git+https://github.com/quxbaz/timer2.git",
     "web-uuid": "git+https://github.com/quxbaz/web-uuid.git"
   },
   "devDependencies": {

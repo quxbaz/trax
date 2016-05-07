@@ -24,7 +24,9 @@ module.exports = {
           join(dirname, 'index.js'),
           join(dirname, 'lib'),
           join(dirname, 'test'),
-          join(dirname, 'node_modules/qux')
+          join(dirname, 'node_modules/qux'),
+          join(dirname, 'node_modules/sentry'),
+          join(dirname, 'node_modules/timer2'),
         ],
         query: {
           presets: ['es2015'],
