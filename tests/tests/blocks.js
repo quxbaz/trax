@@ -122,6 +122,71 @@ describe("blocks", () => {
 
     })
 
+    describe("getEnabledChannels()", () => {
+
+      it("Gets channels that are not mute.", () => {
+        const state = {
+          blocks: {
+            0: {channels: [1, 2, 3]},
+          },
+          channels: {
+            1: {id: 1, mute: false},
+            2: {id: 2, mute: false},
+            3: {id: 3, mute: true},
+          }
+        }
+        const result = [
+          {id: 1, mute: false},
+          {id: 2, mute: false},
+        ]
+        expect(
+          blocks.selectors.getEnabledChannels(0)(state)
+        ).toEqual(result)
+      })
+
+      it("Gets channels that are not archived.", () => {
+        const state = {
+          blocks: {
+            0: {channels: [1, 2]},
+          },
+          channels: {
+            1: {id: 1, mute: false, archived: true},
+            2: {id: 2, mute: false, archived: false},
+          }
+        }
+        const result = [
+          {id: 2, mute: false, archived: false},
+        ]
+        expect(
+          blocks.selectors.getEnabledChannels(0)(state)
+        ).toEqual(result)
+      })
+
+      it("Gets only channels that are soloing even if they are mute, but does not get archived channels.", () => {
+        const state = {
+          blocks: {
+            0: {channels: [1, 2, 3, 4, 5]},
+          },
+          channels: {
+            1: {id: 1, mute: false, solo: true},
+            2: {id: 2, mute: true, solo: true},
+            3: {id: 3, solo: true},
+            4: {id: 4, solo: false},
+            5: {id: 5, solo: true, archived: true},
+          },
+        }
+        const result = [
+          {id: 1, mute: false, solo: true},
+          {id: 2, mute: true, solo: true},
+          {id: 3, solo: true},
+        ]
+        expect(
+          blocks.selectors.getEnabledChannels(0)(state)
+        ).toEqual(result)
+      })
+
+    })
+
   })
 
 })
