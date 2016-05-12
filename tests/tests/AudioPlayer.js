@@ -4,6 +4,7 @@ import times from 'qux/lib/times'
 import {fetchSample} from '../test-util'
 import {
   reducers, channels, blips,
+  blocks,
   presets, mixables, songs,
   player, songPlayer,
   AudioService, AudioPlayer
@@ -36,6 +37,13 @@ describe("AudioPlayer", () => {
 
     store.dispatch(
       presets.actions.createPreset({id: 44, sample: 'hihat'})
+    )
+
+    store.dispatch(
+      blocks.actions.createBlock({
+        id: 'block-id',
+        channels: [1],
+      })
     )
 
     store.dispatch(
