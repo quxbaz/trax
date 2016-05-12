@@ -97,6 +97,31 @@ describe("blocks", () => {
 
     })
 
+    describe("getChannels()", () => {
+
+      it("Gets the channels of a block.", () => {
+        const state = {
+          blocks: {
+            1: {channels: [2, 3]},
+          },
+          channels: {
+            2: {id: 2},
+            3: {id: 3},
+            4: {id: 4},
+          }
+        }
+        const result = [
+          {id: 2},
+          {id: 3},
+        ]
+        expect(
+          blocks.selectors.getChannels(1)(state)
+        ).toEqual(result)
+
+      })
+
+    })
+
   })
 
 })
