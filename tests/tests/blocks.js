@@ -1,4 +1,6 @@
 import expect from 'expect'
+import {createStore, combineReducers, applyMiddleware} from 'redux'
+import thunk from 'redux-thunk'
 import {blocks} from 'trax'
 import {blockInitialState} from 'trax/lib/blocks/reducer'
 
@@ -16,18 +18,28 @@ describe("blocks", () => {
     })
 
     it("Creates a block.", () => {
-      const stateBefore = undefined
-      const action = blocks.actions.createBlock({id: 1, name: 'foo'})
-      const stateAfter = {
-        1: {
-          ...blockInitialState,
-          id: 1,
-          name: 'foo',
+
+      const store = createStore(
+        combineReducers({
+          blocks: blocks.reducer,
+        }),
+        applyMiddleware(thunk)
+      )
+
+      store.dispatch(
+        blocks.actions.createBlock({id: 1, name: 'foo'})
+      )
+
+      expect(store.getState()).toEqual({
+        blocks: {
+          1: {
+            ...blockInitialState,
+            id: 1,
+            name: 'foo',
+          }
         }
-      }
-      expect(
-        blocks.reducer(stateBefore, action)
-      ).toEqual(stateAfter)
+      })
+
     })
 
     it("Adds a channel to a block.", () => {
