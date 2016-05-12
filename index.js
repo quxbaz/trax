@@ -1,6 +1,7 @@
 import sequencer from './lib/sequencer'
 import channels from './lib/channels'
 import blips from './lib/blips'
+import blocks from './lib/blocks'
 import presets from './lib/presets'
 import mixables from './lib/mixables'
 import editor from './lib/editor'
@@ -14,6 +15,7 @@ const reducers = {
   sequencer: sequencer.reducer,
   channels: channels.reducer,
   blips: blips.reducer,
+  blocks: blocks.reducer,
   presets: presets.reducer,
   mixables: mixables.reducer,
   editor: editor.reducer,
@@ -25,6 +27,7 @@ const reducers = {
 export {
   reducers,
   sequencer, channels, blips,
+  blocks,
   presets, mixables,
   editor, songs,
   player, songPlayer,
