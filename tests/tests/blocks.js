@@ -18,28 +18,17 @@ describe("blocks", () => {
     })
 
     it("Creates a block.", () => {
-
-      const store = createStore(
-        combineReducers({
-          blocks: blocks.reducer,
-        }),
-        applyMiddleware(thunk)
-      )
-
-      store.dispatch(
-        blocks.actions.createBlock({id: 1, name: 'foo'})
-      )
-
-      expect(store.getState()).toEqual({
-        blocks: {
-          1: {
-            ...blockInitialState,
-            id: 1,
-            name: 'foo',
-          }
+      const stateBefore = undefined
+      const action = blocks.actions.createBlock({id: 'foo'})
+      const stateAfter = {
+        foo: {
+          ...blockInitialState,
+          id: 'foo',
         }
-      })
-
+      }
+      expect(
+        blocks.reducer(stateBefore, action)
+      ).toEqual(stateAfter)
     })
 
     it("Adds a channel to a block.", () => {

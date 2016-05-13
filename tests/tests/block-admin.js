@@ -1,9 +1,10 @@
 import expect from 'expect'
 import {createStore, combineReducers, applyMiddleware} from 'redux'
 import thunk from 'redux-thunk'
-import {blocks, blockAdmin} from 'trax'
+import {blocks, blockAdmin, songs, songAdmin} from 'trax'
 import {initialState} from 'trax/lib/block-admin/reducer'
 import {blockInitialState} from 'trax/lib/blocks/reducer'
+import {songInitialState} from 'trax/lib/songs/reducer'
 
 describe("block-admin", () => {
 
@@ -25,31 +26,6 @@ describe("block-admin", () => {
       expect(
         blockAdmin.reducer(stateBefore, action)
       ).toEqual(stateAfter)
-    })
-
-    it("Sets the active block on creating the first block.", () => {
-      const store = createStore(
-        combineReducers({
-          blocks: blocks.reducer,
-          blockAdmin: blockAdmin.reducer,
-        }),
-        applyMiddleware(thunk)
-      )
-      store.dispatch(
-        blocks.actions.createBlock({id: 1})
-      )
-      expect(store.getState()).toEqual({
-        blockAdmin: {
-          ...initialState,
-          activeBlock: 1,
-        },
-        blocks: {
-          1: {
-            ...blockInitialState,
-            id: 1,
-          },
-        },
-      })
     })
 
   })
