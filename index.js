@@ -5,8 +5,8 @@ import blocks from './lib/blocks'
 import blockAdmin from './lib/block-admin'
 import presets from './lib/presets'
 import mixables from './lib/mixables'
-import editor from './lib/editor'
 import songs from './lib/songs'
+import songAdmin from './lib/song-admin'
 import player from './lib/player'
 import AudioService from './lib/AudioService'
 import AudioPlayer from './lib/AudioPlayer'
@@ -19,8 +19,8 @@ const reducers = {
   blockAdmin: blockAdmin.reducer,
   presets: presets.reducer,
   mixables: mixables.reducer,
-  editor: editor.reducer,
   songs: songs.reducer,
+  songAdmin: songAdmin.reducer,
   player: player.reducer,
 }
 
@@ -29,7 +29,7 @@ export {
   sequencer, channels, blips,
   blocks, blockAdmin,
   presets, mixables,
-  editor, songs,
+  songs, songAdmin,
   player,
   AudioService, AudioPlayer,
 }
