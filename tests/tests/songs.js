@@ -43,169 +43,26 @@ describe("songs", () => {
       ).toEqual(stateAfter)
     })
 
-    it("Sets the cursor.", () => {
+    it("Adds a block.", () => {
       const stateBefore = {
-        1: {id: 1},
-        2: {id: 2},
+        1: {blocks: []},
       }
-      const action = songs.actions.setCursor(1, [1, 2])
+      const action = songs.actions.addBlock(1, 2)
       const stateAfter = {
-        1: {id: 1, cursor: [1, 2]},
-        2: {id: 2},
+        1: {blocks: [2]},
       }
       expect(
         songs.reducer(stateBefore, action)
       ).toEqual(stateAfter)
     })
 
-    it("Moves the cursor down.", () => {
+    it("Removes a block.", () => {
       const stateBefore = {
-        1: {
-          cursor: [0, 0],
-          data: [
-            [null],
-            [null],
-          ]
-        },
+        1: {blocks: [2]},
       }
-      const action = songs.actions.moveCursorDown(1)
+      const action = songs.actions.removeBlock(1, 2)
       const stateAfter = {
-        1: {
-          cursor: [0, 1],
-          data: [
-            [null],
-            [null],
-          ]
-        },
-      }
-      expect(
-        songs.reducer(stateBefore, action)
-      ).toEqual(stateAfter)
-    })
-
-    it("Does not do anything if the cursor does not exist.", () => {
-      const stateBefore = {
-        1: {
-          cursor: null,
-          data: [
-            [null],
-            [null],
-          ]
-        },
-      }
-      songs.reducer(
-        stateBefore,
-        songs.actions.moveCursorDown(1)
-      )
-    })
-
-    it("Does not move the cursor past the last line.", () => {
-      const stateBefore = {
-        1: {
-          cursor: [0, 1],
-          data: [
-            [null],
-            [null],
-          ]
-        },
-      }
-      const action = songs.actions.moveCursorDown(1)
-      const stateAfter = {
-        1: {
-          cursor: [0, 1],
-          data: [
-            [null],
-            [null],
-          ]
-        },
-      }
-      expect(
-        songs.reducer(stateBefore, action)
-      ).toEqual(stateAfter)
-    })
-
-    it("Sets a channel at a cell.", () => {
-      const stateBefore = {
-        1: {
-          data: [
-            [null, null],
-            [null, null, null],
-          ],
-          cursor: [2, 1],
-        },
-      }
-      const action = songs.actions.setCell(1, 'foo')
-      const stateAfter = {
-        1: {
-          data: [
-            [null, null],
-            [null, null, 'foo'],
-          ],
-          cursor: [2, 1],
-        },
-      }
-      expect(
-        songs.reducer(stateBefore, action)
-      ).toEqual(stateAfter)
-    })
-
-    it("Empties a channel at a cell.", () => {
-      const stateBefore = {
-        1: {
-          data: [
-            ['foo']
-          ],
-          cursor: [0, 0],
-        },
-      }
-      const action = songs.actions.emptyCell(1)
-      const stateAfter = {
-        1: {
-          data: [
-            [null]
-          ],
-          cursor: [0, 0],
-        },
-      }
-      expect(
-        songs.reducer(stateBefore, action)
-      ).toEqual(stateAfter)
-    })
-
-    it("Returns existing state when the cursor is null or undefined.", () => {
-      const stateBefore = {
-        1: {
-          data: [],
-          cursor: null,
-        },
-      }
-      songs.reducer(
-        stateBefore,
-        songs.actions.setCell(1)
-      )
-      songs.reducer(
-        stateBefore,
-        songs.actions.emptyCell(1)
-      )
-    })
-
-    it("Adds lines of data.", () => {
-      const stateBefore = {
-        1: {
-          data: [],
-          channels: 8,
-        },
-      }
-      const action = songs.actions.addLines(1, 3)
-      const stateAfter = {
-        1: {
-          data: [
-            [null, null, null, null, null, null, null, null],
-            [null, null, null, null, null, null, null, null],
-            [null, null, null, null, null, null, null, null],
-          ],
-          channels: 8,
-        },
+        1: {blocks: []},
       }
       expect(
         songs.reducer(stateBefore, action)
