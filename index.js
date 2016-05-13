@@ -8,6 +8,7 @@ import mixables from './lib/mixables'
 import songs from './lib/songs'
 import songAdmin from './lib/song-admin'
 import player from './lib/player'
+import songPlayer from './lib/song-player'
 import AudioService from './lib/AudioService'
 import AudioPlayer from './lib/AudioPlayer'
 
@@ -22,6 +23,7 @@ const reducers = {
   songs: songs.reducer,
   songAdmin: songAdmin.reducer,
   player: player.reducer,
+  songPlayer: songPlayer.reducer,
 }
 
 export {
@@ -30,6 +32,6 @@ export {
   blocks, blockAdmin,
   presets, mixables,
   songs, songAdmin,
-  player,
+  player, songPlayer,
   AudioService, AudioPlayer,
 }
