@@ -6,7 +6,7 @@ import {
   reducers, channels, blips,
   blocks,
   presets, mixables, songs,
-  player, songPlayer,
+  player,
   AudioService, AudioPlayer
 } from 'trax'
 
@@ -75,90 +75,6 @@ describe("AudioPlayer", () => {
       audioPlayer.timer.trigger('tick')
       audioPlayer.timer.trigger('tick')
     }, 200)
-
-  })
-
-  it("Plays a song.", () => {
-
-    const store = createStore(
-      combineReducers(reducers),
-      applyMiddleware(thunk)
-    )
-
-    store.dispatch(
-      presets.actions.createPreset({id: 'preset1', sample: 'hihat'})
-    )
-
-    store.dispatch(
-      mixables.actions.createMixable({id: 'mixable1', sample: 'hihat', rate: 1.5})
-    )
-
-    store.dispatch(
-      presets.actions.createPreset({id: 'preset2', sample: 'hihat', mixable: 'mixable1'})
-    )
-
-    store.dispatch(
-      channels.actions.createChannel({
-        id: 'channel1',
-        preset: 'preset1',
-      })
-    )
-
-    store.dispatch(
-      channels.actions.createChannel({
-        id: 'channel2',
-        preset: 'preset2',
-      })
-    )
-
-    store.dispatch(
-      channels.actions.createChannel({
-        id: 'channel3',
-        preset: 'preset1',
-      })
-    )
-
-    store.getState().channels['channel1'].blips.forEach((id, i) => {
-      store.dispatch(
-        channels.actions.toggleBlipAt('channel1', i)
-      )
-    })
-
-    store.getState().channels['channel2'].blips.forEach((id, i) => {
-      store.dispatch(
-        channels.actions.toggleBlipAt('channel2', i)
-      )
-    })
-
-    store.getState().channels['channel3'].blips.forEach((id, i) => {
-      if ((i % 2) === 0)
-        return
-      store.dispatch(
-        channels.actions.toggleBlipAt('channel3', i)
-      )
-    })
-
-    const audioPlayer = new AudioPlayer({audioService, store, tickInterval: 100})
-
-    store.dispatch(
-      songPlayer.actions.createSongPlayer({beatDuration: 25})
-    )
-
-    store.dispatch(
-      songs.actions.createSong({
-        id: 'songid',
-        data: [
-          ['channel1'],
-          ['channel2'],
-          ['channel3'],
-          ['channel1', 'channel2'],
-        ]
-      })
-    )
-
-    setTimeout(() => {
-      audioPlayer.playSong('songid')
-    }, 1000)
 
   })
 
