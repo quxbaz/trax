@@ -116,7 +116,7 @@ describe("block-admin", () => {
           blockAdmin: {currentBlock: 3},
           blocks: {1: {id: 1}, 2: {id: 2}, 3: {...blockInitialState, id: 3}},
           songAdmin: {currentSong: 10},
-          songs: {10: {id: 10, blocks: [1, 2]}},
+          songs: {10: {id: 10, blocks: [1, 2, 3]}},
         })
         util.uuid = uuid
       })
