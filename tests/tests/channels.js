@@ -279,6 +279,24 @@ describe("channels", () => {
 
     })
 
+    describe("getMany()", () => {
+
+      it("Gets multiple channels by id.", () => {
+        const state = {
+          channels: {
+            1: {id: 1},
+            2: {id: 2},
+            3: {id: 3},
+          }
+        }
+        const result = [{id: 1}, {id: 3}]
+        expect(
+          channels.selectors.getMany([1, 3])(state)
+        ).toEqual(result)
+      })
+
+    })
+
     describe("getEnabled()", () => {
 
       it("Gets channels that are not mute.", () => {
