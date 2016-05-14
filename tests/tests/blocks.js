@@ -202,6 +202,40 @@ describe("blocks", () => {
 
     })
 
+    describe("isSoloMode", () => {
+
+      it("Returns false if no channels are in solo mode.", () => {
+        const state = {
+          channels: {
+            0: {solo: false},
+            1: {solo: true},
+          },
+          blocks: {
+            1: {channels: [0]},
+          },
+        }
+        expect(
+          blocks.selectors.isSoloMode(1)(state)
+        ).toBe(false)
+      })
+
+      it("Returns true if any channels are in solo mode.", () => {
+        const state = {
+          channels: {
+            0: {solo: true},
+            1: {solo: false},
+          },
+          blocks: {
+            1: {channels: [0, 1]},
+          },
+        }
+        expect(
+          blocks.selectors.isSoloMode(1)(state)
+        ).toBe(true)
+      })
+
+    })
+
   })
 
 })
