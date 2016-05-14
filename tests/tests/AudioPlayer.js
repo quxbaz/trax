@@ -48,7 +48,7 @@ describe("AudioPlayer", () => {
     )
 
     store.dispatch(
-      blockAdmin.actions.setActiveBlock('block-id')
+      blockAdmin.actions.setCurrentBlock('block-id')
     )
 
     store.dispatch(
