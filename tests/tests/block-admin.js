@@ -121,6 +121,31 @@ describe("block-admin", () => {
         util.uuid = uuid
       })
 
+      it("Sets the current block to undefined if the block is removed.", () => {
+
+        const stateBefore = {
+          blockAdmin: {currentBlock: 1},
+          blocks: {1: {id: 1}},
+        }
+
+        store = createStore(
+          combineReducers({
+            blockAdmin: blockAdmin.reducer,
+            blocks: blocks.reducer,
+          }),
+          stateBefore
+        )
+
+        store.dispatch(
+          blocks.actions.removeBlock(1)
+        )
+
+        expect(store.getState().blockAdmin).toEqual({
+          currentBlock: undefined,
+        })
+
+      })
+
     })
 
   })
