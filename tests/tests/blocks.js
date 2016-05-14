@@ -31,6 +31,20 @@ describe("blocks", () => {
       ).toEqual(stateAfter)
     })
 
+    it("Removes a block.", () => {
+      const stateBefore = {
+        1: {id: 1},
+        2: {id: 2}
+      }
+      const action = blocks.actions.removeBlock(1)
+      const stateAfter = {
+        2: {id: 2}
+      }
+      expect(
+        blocks.reducer(stateBefore, action)
+      ).toEqual(stateAfter)
+    })
+
     it("Adds a channel to a block.", () => {
       const stateBefore = {
         b: {channels: []}
