@@ -57,6 +57,24 @@ describe("player", () => {
       ).toEqual(stateBefore)
     })
 
+    it("Sets the current beat.", () => {
+      const stateBefore = {}
+      const action = player.actions.setCurrentBeat(5)
+      const stateAfter = {currentBeat: 5}
+      expect(
+        player.reducer(stateBefore, action)
+      ).toEqual(stateAfter)
+    })
+
+    it("Restarts from the first beat and starts playing.", () => {
+      const stateBefore = {}
+      const action = player.actions.restart()
+      const stateAfter = {currentBeat: -1, playing: true}
+      expect(
+        player.reducer(stateBefore, action)
+      ).toEqual(stateAfter)
+    })
+
     it("Steps the beat forward.", () => {
       const stateBefore = {beats: 16, currentBeat: 0}
       const action = player.actions.tick()
