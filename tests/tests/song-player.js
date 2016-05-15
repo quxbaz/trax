@@ -93,6 +93,15 @@ describe("song-player", () => {
       ).toEqual(stateAfter)
     })
 
+    it("Clears the current song.", () => {
+      const stateBefore = {currentSong: 1}
+      const action = songPlayer.actions.clearCurrentSong()
+      const stateAfter = {currentSong: null}
+      expect(
+        songPlayer.reducer(stateBefore, action)
+      ).toEqual(stateAfter)
+    })
+
   })
 
   describe("selectors", () => {
