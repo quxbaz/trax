@@ -4,7 +4,7 @@ import times from 'qux/lib/times'
 import {fetchSample} from '../test-util'
 import {
   reducers, channels, blips,
-  blocks, blockAdmin,
+  blocks,
   presets, mixables,
   songs, songAdmin,
   player, songPlayer,
@@ -47,9 +47,10 @@ describe("AudioPlayer", () => {
       })
     )
 
-    store.dispatch(
-      blockAdmin.actions.setCurrentBlock('block-id')
-    )
+    // <TODO> Set current block on player
+    // store.dispatch(
+    //   blockAdmin.actions.setCurrentBlock('block-id')
+    // )
 
     store.dispatch(
       channels.actions.createChannel({
@@ -183,9 +184,10 @@ describe("AudioPlayer", () => {
       blocks: ['block-1', 'block-2', 'block-3', 'block-4', null, 'block-5'],
     }))
 
-    store.dispatch(
-      songAdmin.actions.setCurrentSong('song')
-    )
+    // <TODO> Set songPlayer current song
+    // store.dispatch(
+    //   songAdmin.actions.setCurrentSong('song')
+    // )
 
     setTimeout(() => {
       audioPlayer.startSong()
