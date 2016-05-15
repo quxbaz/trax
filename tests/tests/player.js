@@ -86,7 +86,7 @@ describe("player", () => {
 
     it("Clears the current block.", () => {
       const stateBefore = {currentBlock: 1}
-      const action = player.actions.clearCurrentBlock(1)
+      const action = player.actions.clearCurrentBlock()
       const stateAfter = {currentBlock: null}
       expect(
         player.reducer(stateBefore, action)
