@@ -3,11 +3,8 @@ import {createStore, applyMiddleware, combineReducers} from 'redux'
 import thunk from 'redux-thunk'
 import {sequencer, channels, blips, presets, mixables} from 'trax'
 import util from 'trax/lib/util'
-
 import {channelInitialState} from 'trax/lib/channels/reducer'
-
-// <TODO> Rename to blipInitialState
-import {initialState as blipInitialState} from 'trax/lib/blips/reducer'
+import {blipInitialState} from 'trax/lib/blips/reducer'
 
 // <TODO> Rename to presetInitialState
 import {initialState as presetInitialState} from 'trax/lib/presets/reducer'

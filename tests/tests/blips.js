@@ -1,6 +1,6 @@
 import expect from 'expect'
 import {blips} from 'trax'
-import {initialState} from 'trax/lib/blips/reducer'
+import {blipInitialState} from 'trax/lib/blips/reducer'
 
 describe("blips", () => {
 
@@ -20,7 +20,7 @@ describe("blips", () => {
       const action = blips.actions.createBlip({id: 0})
       const stateAfter = {
         0: {
-          ...initialState,
+          ...blipInitialState,
           id: 0
         }
       }
