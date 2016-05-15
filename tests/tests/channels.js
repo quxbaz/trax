@@ -3,8 +3,14 @@ import {createStore, applyMiddleware, combineReducers} from 'redux'
 import thunk from 'redux-thunk'
 import {sequencer, channels, blips, presets, mixables} from 'trax'
 import util from 'trax/lib/util'
+
+// <TODO> Rename to channelInitialState
 import {initialState} from 'trax/lib/channels/reducer'
+
+// <TODO> Rename to blipInitialState
 import {initialState as blipInitialState} from 'trax/lib/blips/reducer'
+
+// <TODO> Rename to presetInitialState
 import {initialState as presetInitialState} from 'trax/lib/presets/reducer'
 
 describe("channels", () => {
@@ -130,6 +136,78 @@ describe("channels", () => {
       ).toEqual(stateAfter)
     })
 
+    describe("createBlipAt", () => {
+
+      let store
+
+      beforeEach(() => {
+        store = createStore(
+          combineReducers({
+            channels: channels.reducer,
+            blips: blips.reducer,
+            presets: presets.reducer,
+          }),
+          applyMiddleware(thunk)
+        )
+      })
+
+      it("Creates a blip at a position.", () => {
+        store.dispatch(presets.actions.createPreset({id: 'preset', mixable: 'mixable'}))
+        store.dispatch(channels.actions.createChannel({id: 1, preset: 'preset'}))
+        store.dispatch(channels.actions.createBlipAt(1, 4, {id: 4}))
+        expect(store.getState()).toEqual({
+          channels: {
+            1: {
+              ...initialState,
+              id: 1,
+              blips: [
+                null, null, null, null,
+                4,    null, null, null,
+                null, null, null, null,
+                null, null, null, null,
+              ],
+              preset: 'preset',
+            }
+          },
+          blips: {
+            4: {...blipInitialState, id: 4, beat: 4, mixable: 'mixable'}
+          },
+          presets: {
+            preset: {...presetInitialState, id: 'preset', mixable: 'mixable'}
+          },
+        })
+      })
+
+      it("Does not create a blip if one already exists at the position.", () => {
+        store.dispatch(presets.actions.createPreset({id: 'preset', mixable: 'mixable'}))
+        store.dispatch(channels.actions.createChannel({id: 1, preset: 'preset'}))
+        store.dispatch(channels.actions.createBlipAt(1, 4, {id: 4}))
+        store.dispatch(channels.actions.createBlipAt(1, 4, {id: 'will not exist'}))
+        expect(store.getState()).toEqual({
+          channels: {
+            1: {
+              ...initialState,
+              id: 1,
+              blips: [
+                null, null, null, null,
+                4,    null, null, null,
+                null, null, null, null,
+                null, null, null, null,
+              ],
+              preset: 'preset',
+            }
+          },
+          blips: {
+            4: {...blipInitialState, id: 4, beat: 4, mixable: 'mixable'}
+          },
+          presets: {
+            preset: {...presetInitialState, id: 'preset', mixable: 'mixable'}
+          },
+        })
+      })
+
+    })
+
     describe("toggleBlipAt", () => {
 
       let store
@@ -138,7 +216,7 @@ describe("channels", () => {
         store = createStore(
           combineReducers({
             channels: channels.reducer,
-            blips: blips.reducer
+            blips: blips.reducer,
           }),
           applyMiddleware(thunk)
         )
