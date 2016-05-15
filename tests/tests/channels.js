@@ -380,6 +380,24 @@ describe("channels", () => {
 
     })
 
+    describe("getBlipAt", () => {
+
+      it("Gets a blip at a position.", () => {
+        const state = {
+          channels: {
+            0: {blips: [0, 1, 2]},
+          },
+          blips: {
+            1: {id: 1},
+          },
+        }
+        expect(
+          channels.selectors.getBlipAt(0, 1)(state)
+        ).toEqual({id: 1})
+      })
+
+    })
+
   })
 
 })
