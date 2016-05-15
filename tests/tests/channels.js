@@ -204,6 +204,56 @@ describe("channels", () => {
 
     describe("muteBlipAt", () => {
 
+      it("Mutes a blip at a position.", () => {
+        const store = createStore(
+          combineReducers({
+            channels: channels.reducer,
+            blips: blips.reducer,
+          }),
+          {
+            channels: {
+              1: {
+                id: 1,
+                blips: [null, 1],
+              }
+            },
+            blips: {
+              1: {id: 1, mute: false},
+            },
+          },
+          applyMiddleware(thunk)
+        )
+        store.dispatch(channels.actions.muteBlipAt(1, 1))
+        expect(store.getState().blips[1]).toEqual({
+          id: 1,
+          mute: true,
+        })
+      })
+
+      it("Does nothing if the blip is nil.", () => {
+        const store = createStore(
+          combineReducers({channels: channels.reducer,}),
+          {
+            channels: {
+              1: {
+                id: 1,
+                blips: [null],
+              }
+            },
+          },
+          applyMiddleware(thunk)
+        )
+        store.dispatch(channels.actions.muteBlipAt(1, 0))
+        expect(store.getState()).toEqual({
+          channels: {
+            1: {
+              id: 1,
+              blips: [null],
+            }
+          }
+        })
+      })
+
     })
 
     describe("unmuteBlipAt", () => {
