@@ -53,6 +53,10 @@ describe("AudioPlayer", () => {
     // )
 
     store.dispatch(
+      player.actions.setCurrentBlock('block-id')
+    )
+
+    store.dispatch(
       channels.actions.createChannel({
         id: 1,
         sample: 'hihat',

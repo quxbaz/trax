@@ -75,6 +75,38 @@ describe("player", () => {
       ).toEqual(stateAfter)
     })
 
+    it("Sets the current block.", () => {
+      const stateBefore = {currentBlock: undefined}
+      const action = player.actions.setCurrentBlock(1)
+      const stateAfter = {currentBlock: 1}
+      expect(
+        player.reducer(stateBefore, action)
+      ).toEqual(stateAfter)
+    })
+
+  })
+
+  describe("selectors", () => {
+
+    describe("getCurrentBlock", () => {
+
+      it("Gets the current block.", () => {
+        const state = {
+          player: {
+            currentBlock: 1,
+          },
+          blocks: {
+            1: {id: 1},
+          },
+        }
+        const result = {id: 1}
+        expect(
+          player.selectors.getCurrentBlock(state)
+        ).toEqual(result)
+      })
+
+    })
+
   })
 
 })
