@@ -5,9 +5,7 @@ import {sequencer, channels, blips, presets, mixables} from 'trax'
 import util from 'trax/lib/util'
 import {channelInitialState} from 'trax/lib/channels/reducer'
 import {blipInitialState} from 'trax/lib/blips/reducer'
-
-// <TODO> Rename to presetInitialState
-import {initialState as presetInitialState} from 'trax/lib/presets/reducer'
+import {presetInitialState} from 'trax/lib/presets/reducer'
 
 describe("channels", () => {
 

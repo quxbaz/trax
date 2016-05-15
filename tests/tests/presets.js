@@ -3,7 +3,7 @@ import {createStore, applyMiddleware, combineReducers} from 'redux'
 import thunk from 'redux-thunk'
 import {presets, mixables} from 'trax'
 import util from 'trax/lib/util'
-import {initialState} from 'trax/lib/presets/reducer'
+import {presetInitialState} from 'trax/lib/presets/reducer'
 import {initialState as mixableInitialState} from 'trax/lib/mixables/reducer'
 
 describe("presets", () => {
@@ -49,7 +49,7 @@ describe("presets", () => {
         ).toEqual({
           presets: {
             1: {
-                ...initialState,
+                ...presetInitialState,
               id: 1,
               sample: 'snare',
               mixable: 42,
@@ -82,7 +82,7 @@ describe("presets", () => {
         ).toEqual({
           presets: {
             1: {
-                ...initialState,
+                ...presetInitialState,
               id: 1,
               sample: 'snare',
               mixable: 33,
@@ -137,7 +137,7 @@ describe("presets", () => {
           },
           presets: {
             2: {
-              ...initialState,
+              ...presetInitialState,
               id: 2,
               mixable: 0
             }
