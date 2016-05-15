@@ -4,8 +4,7 @@ import thunk from 'redux-thunk'
 import {sequencer, channels, blips, presets, mixables} from 'trax'
 import util from 'trax/lib/util'
 
-// <TODO> Rename to channelInitialState
-import {initialState} from 'trax/lib/channels/reducer'
+import {channelInitialState} from 'trax/lib/channels/reducer'
 
 // <TODO> Rename to blipInitialState
 import {initialState as blipInitialState} from 'trax/lib/blips/reducer'
@@ -31,7 +30,7 @@ describe("channels", () => {
       const action = channels.actions.createChannel({id: 'foo'})
       const stateAfter = {
         foo: {
-          ...initialState,
+          ...channelInitialState,
           id: 'foo'
         }
       }
@@ -117,12 +116,12 @@ describe("channels", () => {
 
     it("Sets a blip at a position.", () => {
       const stateBefore = {
-        1: initialState
+        1: channelInitialState
       }
       const action = channels.actions.setBlipAt(1, 2, 'fo')
       const stateAfter = {
         1: {
-          ...initialState,
+          ...channelInitialState,
           blips: [
             null, null, 'fo', null,
             null, null, null, null,
@@ -158,7 +157,7 @@ describe("channels", () => {
         expect(store.getState()).toEqual({
           channels: {
             1: {
-              ...initialState,
+              ...channelInitialState,
               id: 1,
               blips: [
                 null, null, null, null,
@@ -186,7 +185,7 @@ describe("channels", () => {
         expect(store.getState()).toEqual({
           channels: {
             1: {
-              ...initialState,
+              ...channelInitialState,
               id: 1,
               blips: [
                 null, null, null, null,
@@ -226,14 +225,14 @@ describe("channels", () => {
         store.dispatch(blips.actions.createBlip({id: 'foo'}))
         store.dispatch(channels.actions.createChannel({
           id: 1,
-          blips: util.replaceAt(initialState.blips, 15, 'foo')
+          blips: util.replaceAt(channelInitialState.blips, 15, 'foo')
         }))
         const action = channels.actions.toggleBlipAt(1, 15)
         const channelsAfter = {
           1: {
-            ...initialState,
+            ...channelInitialState,
             id: 1,
-            blips: util.replaceAt(initialState.blips, 15, 'foo')
+            blips: util.replaceAt(channelInitialState.blips, 15, 'foo')
           }
         }
         store.dispatch(action)
@@ -281,10 +280,10 @@ describe("channels", () => {
 
         const channelsAfter = {
           1: {
-            ...initialState,
+            ...channelInitialState,
             id: 1,
             color, preset,
-            blips: util.replaceAt(initialState.blips, beat, 42),
+            blips: util.replaceAt(channelInitialState.blips, beat, 42),
           }
         }
 
