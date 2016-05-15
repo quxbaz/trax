@@ -4,7 +4,7 @@ import thunk from 'redux-thunk'
 import {presets, mixables} from 'trax'
 import util from 'trax/lib/util'
 import {presetInitialState} from 'trax/lib/presets/reducer'
-import {initialState as mixableInitialState} from 'trax/lib/mixables/reducer'
+import {mixableInitialState} from 'trax/lib/mixables/reducer'
 
 describe("presets", () => {
 

@@ -1,6 +1,6 @@
 import expect from 'expect'
 import {mixables} from 'trax'
-import {initialState} from 'trax/lib/mixables/reducer'
+import {mixableInitialState} from 'trax/lib/mixables/reducer'
 
 describe("mixables", () => {
 
@@ -20,7 +20,7 @@ describe("mixables", () => {
       const action = mixables.actions.createMixable({id: 0})
       const stateAfter = {
         0: {
-          ...initialState,
+          ...mixableInitialState,
           id: 0
         }
       }
@@ -46,14 +46,14 @@ describe("mixables", () => {
     it("Mixes a mixable.", () => {
       const stateBefore = {
         0: {
-          ...initialState,
+          ...mixableInitialState,
           id: 0
         }
       }
       const action = mixables.actions.mix(0, {gain: 5, rate: 4})
       const stateAfter = {
         0: {
-          ...initialState,
+          ...mixableInitialState,
           id: 0,
           gain: 5,
           rate: 4
