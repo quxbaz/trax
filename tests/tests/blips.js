@@ -38,6 +38,15 @@ describe("blips", () => {
       ).toEqual(stateAfter)
     })
 
+    it("Unmutes a blip.", () => {
+      const stateBefore = {1: {mute: true}}
+      const action = blips.actions.unmuteBlip(1)
+      const stateAfter = {1: {mute: false}}
+      expect(
+        blips.reducer(stateBefore, action)
+      ).toEqual(stateAfter)
+    })
+
     it("Toggles mute on blip.", () => {
       const stateBefore = {1: {mute: false}}
       const action = blips.actions.toggleMuteBlip(1)
