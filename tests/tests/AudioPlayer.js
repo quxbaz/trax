@@ -47,11 +47,6 @@ describe("AudioPlayer", () => {
       })
     )
 
-    // <TODO> Set current block on player
-    // store.dispatch(
-    //   blockAdmin.actions.setCurrentBlock('block-id')
-    // )
-
     store.dispatch(
       player.actions.setCurrentBlock('block-id')
     )
@@ -188,10 +183,9 @@ describe("AudioPlayer", () => {
       blocks: ['block-1', 'block-2', 'block-3', 'block-4', null, 'block-5'],
     }))
 
-    // <TODO> Set songPlayer current song
-    // store.dispatch(
-    //   songAdmin.actions.setCurrentSong('song')
-    // )
+    store.dispatch(
+      songPlayer.actions.setCurrentSong('song')
+    )
 
     setTimeout(() => {
       audioPlayer.startSong()

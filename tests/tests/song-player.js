@@ -84,6 +84,38 @@ describe("song-player", () => {
       ).toEqual(stateAfter)
     })
 
+    it("Sets the current song.", () => {
+      const stateBefore = {currentSong: undefined}
+      const action = songPlayer.actions.setCurrentSong(1)
+      const stateAfter = {currentSong: 1}
+      expect(
+        songPlayer.reducer(stateBefore, action)
+      ).toEqual(stateAfter)
+    })
+
+  })
+
+  describe("selectors", () => {
+
+    describe("getCurrentSong", () => {
+
+      it("Gets the current song.", () => {
+        const state = {
+          songPlayer: {
+            currentSong: 1,
+          },
+          songs: {
+            1: {id: 1},
+          },
+        }
+        const result = {id: 1}
+        expect(
+          songPlayer.selectors.getCurrentSong(state)
+        ).toEqual(result)
+      })
+
+    })
+
   })
 
 })
