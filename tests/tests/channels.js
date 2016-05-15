@@ -202,6 +202,89 @@ describe("channels", () => {
 
     })
 
+    describe("muteBlipAt", () => {
+
+    })
+
+    describe("unmuteBlipAt", () => {
+
+      it("Unmutes an existing blip at a position.", () => {
+        const store = createStore(
+          combineReducers({
+            channels: channels.reducer,
+            blips: blips.reducer,
+          }),
+          {
+            channels: {
+              1: {
+                id: 1,
+                blips: [null, 1],
+              }
+            },
+            blips: {
+              1: {id: 1, mute: true},
+            },
+          },
+          applyMiddleware(thunk)
+        )
+        store.dispatch(channels.actions.unmuteBlipAt(1, 1))
+        expect(store.getState().blips[1]).toEqual({
+          id: 1,
+          mute: false,
+        })
+      })
+
+      it("Creates a blip if one does not exist at the position.", () => {
+        const store = createStore(
+          combineReducers({
+            channels: channels.reducer,
+            blips: blips.reducer,
+            presets: presets.reducer,
+          }),
+          {
+            presets: {
+              preset: {
+                id: 'preset',
+                mixable: 'mixable',
+              },
+            },
+            channels: {
+              1: {
+                id: 1,
+                blips: [null, 1],
+                preset: 'preset',
+              }
+            },
+            blips: {
+              1: {id: 1, mute: true},
+            },
+          },
+          applyMiddleware(thunk)
+        )
+        store.dispatch(channels.actions.unmuteBlipAt(1, 0, {id: 0}))
+        expect(store.getState()).toEqual({
+          presets: {
+            preset: {
+              id: 'preset',
+              mixable: 'mixable',
+            },
+          },
+          channels: {
+            1: {
+              id: 1,
+              blips: [0, 1],
+              preset: 'preset',
+            }
+          },
+          blips: {
+            0: {...blipInitialState, id: 0, beat: 0, mixable: 'mixable'},
+            1: {id: 1, mute: true},
+          },
+        })
+      })
+
+    })
+
     describe("toggleBlipAt", () => {
 
       let store
