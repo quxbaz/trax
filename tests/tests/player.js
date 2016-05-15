@@ -84,6 +84,15 @@ describe("player", () => {
       ).toEqual(stateAfter)
     })
 
+    it("Clears the current block.", () => {
+      const stateBefore = {currentBlock: 1}
+      const action = player.actions.clearCurrentBlock(1)
+      const stateAfter = {currentBlock: null}
+      expect(
+        player.reducer(stateBefore, action)
+      ).toEqual(stateAfter)
+    })
+
   })
 
   describe("selectors", () => {
