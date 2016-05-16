@@ -135,6 +135,27 @@ describe("songs", () => {
       })
     })
 
+    describe("getBlocks()", () => {
+      it("Gets a song's blocks.", () => {
+        const state = {
+          songs: {
+            1: {blocks: ['a', 'b']},
+          },
+          blocks: {
+            'a': {id: 'a'},
+            'b': {id: 'b'},
+            'c': {id: 'c'},
+          },
+        }
+        expect(
+          songs.selectors.getBlocks(1)(state)
+        ).toEqual([
+          {id: 'a'},
+          {id: 'b'},
+        ])
+      })
+    })
+
   })
 
 })
