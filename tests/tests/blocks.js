@@ -1,7 +1,7 @@
 import expect from 'expect'
 import {createStore, combineReducers, applyMiddleware} from 'redux'
 import thunk from 'redux-thunk'
-import {blocks} from 'trax'
+import {channels, blocks} from 'trax'
 import {blockInitialState} from 'trax/lib/blocks/reducer'
 
 describe("blocks", () => {
@@ -69,6 +69,22 @@ describe("blocks", () => {
       expect(
         blocks.reducer(stateBefore, action)
       ).toEqual(stateAfter)
+    })
+
+    it("Removes a channel from a block when the channel is removed.", () => {
+      const store = createStore(
+        combineReducers({
+          channels: channels.reducer,
+          blocks: blocks.reducer,
+        }), {
+          channels: {a: {}},
+          blocks: {1: {channels: ['a', 'b']}},
+        }
+      )
+      store.dispatch(channels.actions.removeChannel('a'))
+      expect(store.getState().blocks[1]).toEqual({
+        channels: ['b']
+      })
     })
 
   })
