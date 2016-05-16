@@ -49,7 +49,7 @@ describe("blips", () => {
 
     it("Toggles mute on blip.", () => {
       const stateBefore = {1: {mute: false}}
-      const action = blips.actions.toggleMuteBlip(1)
+      const action = blips.actions.toggleBlip(1)
       const stateAfter = {1: {mute: true}}
       expect(
         blips.reducer(stateBefore, action)
