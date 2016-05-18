@@ -183,9 +183,9 @@ describe("AudioPlayer", () => {
       blocks: ['block-1', 'block-2', 'block-3', 'block-4', null, 'block-5'],
     }))
 
-    store.dispatch(
-      songPlayer.actions.setCurrentSong('song')
-    )
+    store.dispatch(songPlayer.actions.setCurrentSong('song'))
+
+    // store.dispatch(songPlayer.actions.setLoop(true))
 
     setTimeout(() => {
       audioPlayer.startSong()
