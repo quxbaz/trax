@@ -93,6 +93,18 @@ describe("song-player", () => {
       ).toEqual(stateAfter)
     })
 
+    it("Toggles looping.", () => {
+      const stateBefore = {loop: true}
+      const action = songPlayer.actions.toggleLoop()
+      const stateAfter = {loop: false}
+      expect(
+        songPlayer.reducer(stateBefore, action)
+      ).toEqual(stateAfter)
+      expect(
+        songPlayer.reducer(stateAfter, action)
+      ).toEqual(stateBefore)
+    })
+
     it("Sets the current beat.", () => {
       const stateBefore = {currentBeat: 0}
       const action = songPlayer.actions.setCurrentBeat(7)
