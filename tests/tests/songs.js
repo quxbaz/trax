@@ -98,6 +98,15 @@ describe("songs", () => {
       })
     })
 
+    it("Takes a block and inserts it before another block.", () => {
+      const stateBefore = {id: {blocks: ['a', 'b', 'c']}}
+      const action = songs.actions.insertBefore('id', 2, 1)
+      const stateAfter = {id: {blocks: ['a', 'c', 'b']}}
+      expect(
+        songs.reducer(stateBefore, action)
+      ).toEqual(stateAfter)
+    })
+
   })
 
   describe("selectors", () => {
