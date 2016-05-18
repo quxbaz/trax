@@ -98,9 +98,9 @@ describe("songs", () => {
       })
     })
 
-    it("Takes a block and inserts it before another block.", () => {
+    it("Takes a block and moves it to another index.", () => {
       const stateBefore = {id: {blocks: ['a', 'b', 'c']}}
-      const action = songs.actions.insertBefore('id', 2, 1)
+      const action = songs.actions.moveBlock('id', 2, 1)
       const stateAfter = {id: {blocks: ['a', 'c', 'b']}}
       expect(
         songs.reducer(stateBefore, action)
