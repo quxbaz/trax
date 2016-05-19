@@ -2,6 +2,7 @@ import expect from 'expect'
 import {createStore, combineReducers, applyMiddleware} from 'redux'
 import thunk from 'redux-thunk'
 import {blocks, songs} from 'trax'
+import {blockInitialState} from 'trax/lib/blocks/reducer'
 import {songInitialState} from 'trax/lib/songs/reducer'
 
 describe("songs", () => {
@@ -105,6 +106,40 @@ describe("songs", () => {
       expect(
         songs.reducer(stateBefore, action)
       ).toEqual(stateAfter)
+    })
+
+    it("Creates a block.", () => {
+
+      const store = createStore(
+        combineReducers({
+          songs: songs.reducer,
+          blocks: blocks.reducer,
+        }),
+        {
+          songs: {
+            1: {id: 1, blocks: []}
+          },
+        },
+        applyMiddleware(thunk)
+      )
+
+      store.dispatch(
+        songs.actions.createBlock(1, {id: 2})
+      )
+
+      expect(store.getState()).toEqual({
+        songs: {
+          1: {id: 1, blocks: [2]}
+        },
+        blocks: {
+          2: {
+            ...blockInitialState,
+            id: 2,
+            song: 1,
+          }
+        },
+      })
+
     })
 
   })
