@@ -377,16 +377,13 @@ describe("channels", () => {
         expect(
           store.getState()
         ).toEqual({
-          id: 0,
+          id: '0',
           channels: channelsAfter,
           blips: {
             foo: {...blipInitialState, id: 'foo', mute: true}
           }
         })
       })
-
-      // { blips: { 1: { beat: 0, color: 'red', id: 1, mixable: 'mixableid', mute: false } }, channels: { 1: { archived: false, beats: 16, blips: [ 1, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null ], color: 'red', id: 1, mute: false, number: undefined, preset: 'presetid', solo: false, title: undefined } }, id: 1, presets: { presetid: { id: 'presetid', mixable: 'mixableid', sample: undefined, title: undefined } } }
-      // { blips: { 42: { beat: 0, color: 'red', id: 42, mixable: 'mixableid', mute: false } }, channels: { 1: { archived: false, beats: 16, blips: [ 42, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null ], color: 'red', id: 1, mute: false, number: undefined, preset: 'presetid', solo: false, title: undefined } }, id: 1, presets: { presetid: { id: 'presetid', mixable: 'mixableid', sample: undefined, title: undefined } } }
 
       it("Creates a blip at a position with a beat set that inherits color, and mixable.", () => {
 
@@ -423,7 +420,7 @@ describe("channels", () => {
             ...channelInitialState,
             id: 'channel',
             color, preset,
-            blips: util.replaceAt(channelInitialState.blips, beat, 1),
+            blips: util.replaceAt(channelInitialState.blips, beat, '1'),
           }
         }
 
@@ -432,12 +429,12 @@ describe("channels", () => {
         expect(
           store.getState()
         ).toEqual({
-          id: 1,
+          id: '1',
           channels: channelsAfter,
           blips: {
             1: {
               ...blipInitialState,
-              id: 1, mute: false, beat,
+              id: '1', mute: false, beat,
               color, mixable,
             }
           },

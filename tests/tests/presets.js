@@ -37,26 +37,26 @@ describe("presets", () => {
       it("Creates a preset and a default mixable that inherits some properties.", () => {
 
         store.dispatch(presets.actions.createPreset({
-          id: 1,
+          id: 'preset',
           sample: 'snare'
         }))
 
         expect(
           store.getState()
         ).toEqual({
-          id: 1,
+          id: '1',
           presets: {
-            1: {
+            preset: {
                 ...presetInitialState,
-              id: 1,
+              id: 'preset',
               sample: 'snare',
-              mixable: 1,
+              mixable: '1',
             }
           },
           mixables: {
             1: {
               ...mixableInitialState,
-              id: 1,
+              id: '1',
               sample: 'snare',
             }
           }
@@ -75,7 +75,7 @@ describe("presets", () => {
         expect(
           store.getState()
         ).toEqual({
-          id: 0,
+          id: '0',
           presets: {
             1: {
                 ...presetInitialState,
