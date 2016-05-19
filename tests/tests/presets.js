@@ -1,7 +1,7 @@
 import expect from 'expect'
 import {createStore, applyMiddleware, combineReducers} from 'redux'
 import thunk from 'redux-thunk'
-import {presets, mixables} from 'trax'
+import {id, presets, mixables} from 'trax'
 import util from 'trax/lib/util'
 import {presetInitialState} from 'trax/lib/presets/reducer'
 import {mixableInitialState} from 'trax/lib/mixables/reducer'
@@ -26,6 +26,7 @@ describe("presets", () => {
       beforeEach(() => {
         store = createStore(
           combineReducers({
+            id: id.reducer,
             presets: presets.reducer,
             mixables: mixables.reducer,
           }),
@@ -35,10 +36,6 @@ describe("presets", () => {
 
       it("Creates a preset and a default mixable that inherits some properties.", () => {
 
-        // Mock util.uuid
-        const uuid = util.uuid
-        util.uuid = () => 42
-
         store.dispatch(presets.actions.createPreset({
           id: 1,
           sample: 'snare'
@@ -47,25 +44,23 @@ describe("presets", () => {
         expect(
           store.getState()
         ).toEqual({
+          id: 1,
           presets: {
             1: {
                 ...presetInitialState,
               id: 1,
               sample: 'snare',
-              mixable: 42,
+              mixable: 1,
             }
           },
           mixables: {
-            42: {
+            1: {
               ...mixableInitialState,
-              id: 42,
+              id: 1,
               sample: 'snare',
             }
           }
         })
-
-        // Restore util.uuid
-        util.uuid = uuid
 
       })
 
@@ -80,6 +75,7 @@ describe("presets", () => {
         expect(
           store.getState()
         ).toEqual({
+          id: 0,
           presets: {
             1: {
                 ...presetInitialState,

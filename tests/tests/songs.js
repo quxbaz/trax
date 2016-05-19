@@ -19,18 +19,15 @@ describe("songs", () => {
     })
 
     it("Creates a song.", () => {
-
       const store = createStore(
         combineReducers({
           songs: songs.reducer,
         }),
         applyMiddleware(thunk)
       )
-
       store.dispatch(
         songs.actions.createSong({id: 1, name: 'foo'})
       )
-
       expect(store.getState()).toEqual({
         songs: {
           1: {
@@ -40,7 +37,6 @@ describe("songs", () => {
           }
         }
       })
-
     })
 
     it("Removes a song.", () => {

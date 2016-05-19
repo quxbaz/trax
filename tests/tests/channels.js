@@ -1,7 +1,7 @@
 import expect from 'expect'
 import {createStore, applyMiddleware, combineReducers} from 'redux'
 import thunk from 'redux-thunk'
-import {sequencer, channels, blips, presets, mixables} from 'trax'
+import {id, sequencer, channels, blips, presets, mixables} from 'trax'
 import util from 'trax/lib/util'
 import {channelInitialState} from 'trax/lib/channels/reducer'
 import {blipInitialState} from 'trax/lib/blips/reducer'
@@ -21,16 +21,25 @@ describe("channels", () => {
     })
 
     it("Creates a channel.", () => {
+      const store = createStore(
+        combineReducers({
+          id: id.reducer,
+          channels: channels.reducer,
+        }),
+        applyMiddleware(thunk)
+      )
       const stateBefore = undefined
-      const action = channels.actions.createChannel({id: 'foo'})
+      store.dispatch(
+        channels.actions.createChannel({id: 'foo'})
+      )
       const stateAfter = {
         foo: {
           ...channelInitialState,
-          id: 'foo'
+          id: 'foo',
         }
       }
       expect(
-        channels.reducer(stateBefore, action)
+        store.getState().channels
       ).toEqual(stateAfter)
     })
 
@@ -342,6 +351,7 @@ describe("channels", () => {
       beforeEach(() => {
         store = createStore(
           combineReducers({
+            id: id.reducer,
             channels: channels.reducer,
             blips: blips.reducer,
           }),
@@ -367,6 +377,7 @@ describe("channels", () => {
         expect(
           store.getState()
         ).toEqual({
+          id: 0,
           channels: channelsAfter,
           blips: {
             foo: {...blipInitialState, id: 'foo', mute: true}
@@ -374,13 +385,14 @@ describe("channels", () => {
         })
       })
 
-      it("Creates a blip at a position with a beat set that inherits color, and mixable.", () => {
+      // { blips: { 1: { beat: 0, color: 'red', id: 1, mixable: 'mixableid', mute: false } }, channels: { 1: { archived: false, beats: 16, blips: [ 1, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null ], color: 'red', id: 1, mute: false, number: undefined, preset: 'presetid', solo: false, title: undefined } }, id: 1, presets: { presetid: { id: 'presetid', mixable: 'mixableid', sample: undefined, title: undefined } } }
+      // { blips: { 42: { beat: 0, color: 'red', id: 42, mixable: 'mixableid', mute: false } }, channels: { 1: { archived: false, beats: 16, blips: [ 42, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null ], color: 'red', id: 1, mute: false, number: undefined, preset: 'presetid', solo: false, title: undefined } }, id: 1, presets: { presetid: { id: 'presetid', mixable: 'mixableid', sample: undefined, title: undefined } } }
 
-        const uuid = util.uuid
-        util.uuid = () => 42
+      it("Creates a blip at a position with a beat set that inherits color, and mixable.", () => {
 
         store = createStore(
           combineReducers({
+            id: id.reducer,
             channels: channels.reducer,
             blips: blips.reducer,
             presets: presets.reducer,
@@ -399,19 +411,19 @@ describe("channels", () => {
         }))
 
         store.dispatch(channels.actions.createChannel({
-          id: 1,
+          id: 'channel',
           color,
           preset: preset,
         }))
 
-        const action = channels.actions.toggleBlipAt(1, beat)
+        const action = channels.actions.toggleBlipAt('channel', beat)
 
         const channelsAfter = {
-          1: {
+          'channel': {
             ...channelInitialState,
-            id: 1,
+            id: 'channel',
             color, preset,
-            blips: util.replaceAt(channelInitialState.blips, beat, 42),
+            blips: util.replaceAt(channelInitialState.blips, beat, 1),
           }
         }
 
@@ -420,11 +432,12 @@ describe("channels", () => {
         expect(
           store.getState()
         ).toEqual({
+          id: 1,
           channels: channelsAfter,
           blips: {
-            42: {
+            1: {
               ...blipInitialState,
-              id: 42, mute: false, beat,
+              id: 1, mute: false, beat,
               color, mixable,
             }
           },
@@ -436,8 +449,6 @@ describe("channels", () => {
             }
           }
         })
-
-        util.uuid = uuid
 
       })
 

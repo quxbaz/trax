@@ -1,4 +1,5 @@
 import './tests/util'
+import './tests/id'
 import './tests/sequencer'
 import './tests/channels'
 import './tests/blips'

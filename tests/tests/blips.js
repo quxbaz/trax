@@ -1,5 +1,7 @@
 import expect from 'expect'
-import {blips} from 'trax'
+import {createStore, applyMiddleware, combineReducers} from 'redux'
+import thunk from 'redux-thunk'
+import {id, blips} from 'trax'
 import {blipInitialState} from 'trax/lib/blips/reducer'
 
 describe("blips", () => {
@@ -16,16 +18,25 @@ describe("blips", () => {
     })
 
     it("Creates a blip.", () => {
+      const store = createStore(
+        combineReducers({
+          id: id.reducer,
+          blips: blips.reducer,
+        }),
+        applyMiddleware(thunk)
+      )
       const stateBefore = undefined
-      const action = blips.actions.createBlip({id: 0})
+      store.dispatch(
+        blips.actions.createBlip({id: 'foo'})
+      )
       const stateAfter = {
-        0: {
+        foo: {
           ...blipInitialState,
-          id: 0
+          id: 'foo',
         }
       }
       expect(
-        blips.reducer(stateBefore, action)
+        store.getState().blips
       ).toEqual(stateAfter)
     })
 

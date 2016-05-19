@@ -1,7 +1,7 @@
 import expect from 'expect'
 import {createStore, combineReducers, applyMiddleware} from 'redux'
 import thunk from 'redux-thunk'
-import {channels, blocks} from 'trax'
+import {id, channels, blocks} from 'trax'
 import {blockInitialState} from 'trax/lib/blocks/reducer'
 
 describe("blocks", () => {
@@ -18,8 +18,17 @@ describe("blocks", () => {
     })
 
     it("Creates a block.", () => {
+      const store = createStore(
+        combineReducers({
+          id: id.reducer,
+          blocks: blocks.reducer,
+        }),
+        applyMiddleware(thunk)
+      )
       const stateBefore = undefined
-      const action = blocks.actions.createBlock({id: 'foo'})
+      store.dispatch(
+        blocks.actions.createBlock({id: 'foo'})
+      )
       const stateAfter = {
         foo: {
           ...blockInitialState,
@@ -27,7 +36,7 @@ describe("blocks", () => {
         }
       }
       expect(
-        blocks.reducer(stateBefore, action)
+        store.getState().blocks
       ).toEqual(stateAfter)
     })
 

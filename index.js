@@ -1,3 +1,4 @@
+import id from './lib/id'
 import sequencer from './lib/sequencer'
 import channels from './lib/channels'
 import blips from './lib/blips'
@@ -11,6 +12,7 @@ import AudioService from './lib/AudioService'
 import AudioPlayer from './lib/AudioPlayer'
 
 const reducers = {
+  id: id.reducer,
   sequencer: sequencer.reducer,
   channels: channels.reducer,
   blips: blips.reducer,
@@ -24,6 +26,7 @@ const reducers = {
 
 export {
   reducers,
+  id,
   sequencer, channels, blips,
   blocks, songs,
   presets, mixables,

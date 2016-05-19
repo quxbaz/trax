@@ -1,5 +1,7 @@
 import expect from 'expect'
-import {mixables} from 'trax'
+import {createStore, combineReducers, applyMiddleware} from 'redux'
+import thunk from 'redux-thunk'
+import {id, mixables} from 'trax'
 import {mixableInitialState} from 'trax/lib/mixables/reducer'
 
 describe("mixables", () => {
@@ -16,16 +18,25 @@ describe("mixables", () => {
     })
 
     it("Creates a mixable.", () => {
+      const store = createStore(
+        combineReducers({
+          id: id.reducer,
+          mixables: mixables.reducer,
+        }),
+        applyMiddleware(thunk)
+      )
       const stateBefore = undefined
-      const action = mixables.actions.createMixable({id: 0})
+      store.dispatch(
+        mixables.actions.createMixable({id: 'foo'})
+      )
       const stateAfter = {
-        0: {
+        foo: {
           ...mixableInitialState,
-          id: 0
+          id: 'foo',
         }
       }
       expect(
-        mixables.reducer(stateBefore, action)
+        store.getState().mixables
       ).toEqual(stateAfter)
     })
 
