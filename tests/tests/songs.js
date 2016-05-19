@@ -119,9 +119,14 @@ describe("songs", () => {
         applyMiddleware(thunk)
       )
 
-      store.dispatch(
+      const action = store.dispatch(
         songs.actions.createBlock(1, {id: 2})
       )
+
+      expect(action).toEqual({
+        type: blocks.actionTypes.CREATE_BLOCK,
+        payload: {id: 2, song: 1},
+      })
 
       expect(store.getState()).toEqual({
         songs: {
