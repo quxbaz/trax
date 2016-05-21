@@ -54,6 +54,27 @@ describe("mixables", () => {
       ).toEqual(stateAfter)
     })
 
+    it("Deep copies a mixable.", () => {
+      const store = createStore(
+        combineReducers({
+          id: id.reducer,
+          mixables: mixables.reducer,
+        }),
+        {
+          id: '0',
+          mixables: {
+            0: {id: '0', gain: 4},
+          },
+        },
+        applyMiddleware(thunk)
+      )
+      store.dispatch(mixables.actions.deepCopyMixable('0', {id: '1'}))
+      expect(store.getState().mixables).toEqual({
+        0: {id: '0', gain: 4},
+        1: {id: '1', gain: 4},
+      })
+    })
+
     it("Mixes a mixable.", () => {
       const stateBefore = {
         0: {
