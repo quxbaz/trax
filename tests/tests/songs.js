@@ -66,6 +66,19 @@ describe("songs", () => {
       ).toEqual(stateAfter)
     })
 
+    it("Adds a block at a position.", () => {
+      const stateBefore = {
+        1: {blocks: ['a', 'c']},
+      }
+      const action = songs.actions.addBlockAt(1, 'b', 1)
+      const stateAfter = {
+        1: {blocks: ['a', 'b', 'c']},
+      }
+      expect(
+        songs.reducer(stateBefore, action)
+      ).toEqual(stateAfter)
+    })
+
     it("Removes a block.", () => {
       const stateBefore = {
         1: {blocks: [2]},
@@ -140,6 +153,31 @@ describe("songs", () => {
           }
         },
       })
+
+    })
+
+    it("Creates a block at an index.", () => {
+
+      const store = createStore(
+        combineReducers({
+          songs: songs.reducer,
+          blocks: blocks.reducer,
+        }),
+        {
+          songs: {
+            1: {id: 1, blocks: ['a', 'c', 'd']}
+          },
+        },
+        applyMiddleware(thunk)
+      )
+
+      const action = store.dispatch(
+        songs.actions.createBlockAt(1, 1, {id: 'b'})
+      )
+
+      expect(store.getState().songs[1].blocks).toEqual(
+        ['a', 'b', 'c', 'd']
+      )
 
     })
 
