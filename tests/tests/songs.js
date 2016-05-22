@@ -102,7 +102,7 @@ describe("songs", () => {
           songs: {1: {blocks: ['a', 'b']}},
         }
       )
-      store.dispatch(blocks.actions.removeBlock('a'))
+      store.dispatch(blocks.actions.remove('a'))
       expect(store.getState().songs[1]).toEqual({
         blocks: ['b']
       })
@@ -137,7 +137,7 @@ describe("songs", () => {
       )
 
       expect(action).toEqual({
-        type: blocks.actionTypes.CREATE_BLOCK,
+        type: blocks.actionTypes.CREATE,
         payload: {id: 2, song: 1},
       })
 

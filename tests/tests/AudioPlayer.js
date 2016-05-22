@@ -41,7 +41,7 @@ describe("AudioPlayer", () => {
     )
 
     store.dispatch(
-      blocks.actions.createBlock({
+      blocks.actions.create({
         id: 'block-id',
         channels: [1],
       })
@@ -153,27 +153,27 @@ describe("AudioPlayer", () => {
 
     const audioPlayer = new AudioPlayer({audioService, store, tickInterval: 25})
 
-    store.dispatch(blocks.actions.createBlock({
+    store.dispatch(blocks.actions.create({
       id: 'block-1',
       channels: ['channel']
     }))
 
-    store.dispatch(blocks.actions.createBlock({
+    store.dispatch(blocks.actions.create({
       id: 'block-2',
       channels: ['channel-low']
     }))
 
-    store.dispatch(blocks.actions.createBlock({
+    store.dispatch(blocks.actions.create({
       id: 'block-3',
       channels: ['channel-high']
     }))
 
-    store.dispatch(blocks.actions.createBlock({
+    store.dispatch(blocks.actions.create({
       id: 'block-4',
       channels: ['channel-low', 'channel-high']
     }))
 
-    store.dispatch(blocks.actions.createBlock({
+    store.dispatch(blocks.actions.create({
       id: 'block-5',
       channels: ['channel', 'channel-low', 'channel-high']
     }))

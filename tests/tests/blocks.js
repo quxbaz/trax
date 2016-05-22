@@ -27,7 +27,7 @@ describe("blocks", () => {
       )
       const stateBefore = undefined
       store.dispatch(
-        blocks.actions.createBlock({id: 'foo'})
+        blocks.actions.create({id: 'foo'})
       )
       const stateAfter = {
         foo: {
@@ -45,7 +45,7 @@ describe("blocks", () => {
         1: {id: 1},
         2: {id: 2}
       }
-      const action = blocks.actions.removeBlock(1)
+      const action = blocks.actions.remove(1)
       const stateAfter = {
         2: {id: 2}
       }
