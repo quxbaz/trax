@@ -360,7 +360,7 @@ describe("channels", () => {
       })
 
       it("Toggles an existing blip at a position.", () => {
-        store.dispatch(blips.actions.createBlip({id: 'foo'}))
+        store.dispatch(blips.actions.create({id: 'foo'}))
         store.dispatch(channels.actions.createChannel({
           id: 1,
           blips: util.replaceAt(channelInitialState.blips, 15, 'foo')

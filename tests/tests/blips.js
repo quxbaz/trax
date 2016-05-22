@@ -27,7 +27,7 @@ describe("blips", () => {
       )
       const stateBefore = undefined
       store.dispatch(
-        blips.actions.createBlip({id: 'foo'})
+        blips.actions.create({id: 'foo'})
       )
       const stateAfter = {
         foo: {
@@ -42,7 +42,7 @@ describe("blips", () => {
 
     it("Mutes a blip.", () => {
       const stateBefore = {1: {mute: false}}
-      const action = blips.actions.muteBlip(1)
+      const action = blips.actions.mute(1)
       const stateAfter = {1: {mute: true}}
       expect(
         blips.reducer(stateBefore, action)
@@ -51,7 +51,7 @@ describe("blips", () => {
 
     it("Unmutes a blip.", () => {
       const stateBefore = {1: {mute: true}}
-      const action = blips.actions.unmuteBlip(1)
+      const action = blips.actions.unmute(1)
       const stateAfter = {1: {mute: false}}
       expect(
         blips.reducer(stateBefore, action)
@@ -60,7 +60,7 @@ describe("blips", () => {
 
     it("Toggles mute on blip.", () => {
       const stateBefore = {1: {mute: false}}
-      const action = blips.actions.toggleBlip(1)
+      const action = blips.actions.toggle(1)
       const stateAfter = {1: {mute: true}}
       expect(
         blips.reducer(stateBefore, action)

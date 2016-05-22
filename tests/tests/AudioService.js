@@ -19,14 +19,14 @@ describe("AudioService", function() {
 
   it("Should play two audible hihat sounds (this test will always pass).", () => {
     const blip = blips.reducer(undefined, {
-      type: blips.actionTypes.CREATE_BLIP,
+      type: blips.actionTypes.CREATE,
       payload: {
         id: 0,
         mute: false,
       }
     })[0]
     const mixable = mixables.reducer(undefined, {
-      type: mixables.actionTypes.CREATE_MIXABLE,
+      type: mixables.actionTypes.CREATE,
       payload: {
         id: 0,
         sample: 'hihat',
