@@ -37,7 +37,7 @@ describe("AudioPlayer", () => {
     store.dispatch(player.actions.create({playing: true}))
 
     store.dispatch(
-      presets.actions.createPreset({id: 44, sample: 'hihat'})
+      presets.actions.create({id: 44, sample: 'hihat'})
     )
 
     store.dispatch(
@@ -99,15 +99,15 @@ describe("AudioPlayer", () => {
     )
 
     store.dispatch(
-      presets.actions.createPreset({id: 'preset', sample: 'hihat'})
+      presets.actions.create({id: 'preset', sample: 'hihat'})
     )
 
     store.dispatch(
-      presets.actions.createPreset({id: 'preset-low', sample: 'hihat', mixable: 'low'})
+      presets.actions.create({id: 'preset-low', sample: 'hihat', mixable: 'low'})
     )
 
     store.dispatch(
-      presets.actions.createPreset({id: 'preset-high', sample: 'hihat', mixable: 'high'})
+      presets.actions.create({id: 'preset-high', sample: 'hihat', mixable: 'high'})
     )
 
     store.dispatch(

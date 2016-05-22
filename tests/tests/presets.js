@@ -19,7 +19,7 @@ describe("presets", () => {
       ).toEqual(stateAfter)
     })
 
-    describe("createPreset", () => {
+    describe("create", () => {
 
       let store
 
@@ -36,7 +36,7 @@ describe("presets", () => {
 
       it("Creates a preset and a default mixable that inherits some properties.", () => {
 
-        store.dispatch(presets.actions.createPreset({
+        store.dispatch(presets.actions.create({
           id: 'preset',
           sample: 'snare'
         }))
@@ -66,7 +66,7 @@ describe("presets", () => {
 
       it("Does not create a new mixable if one is provided to the action.", () => {
 
-        store.dispatch(presets.actions.createPreset({
+        store.dispatch(presets.actions.create({
           id: 1,
           sample: 'snare',
           mixable: 33,
@@ -91,7 +91,7 @@ describe("presets", () => {
 
     })
 
-    describe("removePreset", () => {
+    describe("remove", () => {
 
       let store
 
@@ -116,7 +116,7 @@ describe("presets", () => {
         )
 
         store.dispatch(
-          presets.actions.createPreset({id: 2, mixable: 0})
+          presets.actions.create({id: 2, mixable: 0})
         )
 
         // Make sure initial conditions are set
@@ -141,7 +141,7 @@ describe("presets", () => {
         })
 
         store.dispatch(
-          presets.actions.removePreset(2)
+          presets.actions.remove(2)
         )
 
         expect(store.getState()).toEqual({

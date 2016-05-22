@@ -155,7 +155,7 @@ describe("channels", () => {
       })
 
       it("Creates a blip at a position.", () => {
-        store.dispatch(presets.actions.createPreset({id: 'preset', mixable: 'mixable'}))
+        store.dispatch(presets.actions.create({id: 'preset', mixable: 'mixable'}))
         store.dispatch(channels.actions.create({id: 1, preset: 'preset'}))
         store.dispatch(channels.actions.createBlipAt(1, 4, {id: 4}))
         expect(store.getState()).toEqual({
@@ -182,7 +182,7 @@ describe("channels", () => {
       })
 
       it("Does not create a blip if one already exists at the position.", () => {
-        store.dispatch(presets.actions.createPreset({id: 'preset', mixable: 'mixable'}))
+        store.dispatch(presets.actions.create({id: 'preset', mixable: 'mixable'}))
         store.dispatch(channels.actions.create({id: 1, preset: 'preset'}))
         store.dispatch(channels.actions.createBlipAt(1, 4, {id: 4}))
         store.dispatch(channels.actions.createBlipAt(1, 4, {id: 'will not exist'}))
@@ -402,7 +402,7 @@ describe("channels", () => {
         const mixable = 'mixableid'
         const preset = 'presetid'
 
-        store.dispatch(presets.actions.createPreset({
+        store.dispatch(presets.actions.create({
           id: preset,
           mixable,
         }))
