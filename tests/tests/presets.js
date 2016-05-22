@@ -108,11 +108,11 @@ describe("presets", () => {
       it("Removes a preset and its mixable.", () => {
 
         store.dispatch(
-          mixables.actions.createMixable({id: 0})
+          mixables.actions.create({id: 0})
         )
 
         store.dispatch(
-          mixables.actions.createMixable({id: 1})
+          mixables.actions.create({id: 1})
         )
 
         store.dispatch(

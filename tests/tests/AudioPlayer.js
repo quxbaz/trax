@@ -91,11 +91,11 @@ describe("AudioPlayer", () => {
     )
 
     store.dispatch(
-      mixables.actions.createMixable({id: 'low', sample: 'hihat', rate: 0.7})
+      mixables.actions.create({id: 'low', sample: 'hihat', rate: 0.7})
     )
 
     store.dispatch(
-      mixables.actions.createMixable({id: 'high', sample: 'hihat', rate: 1.5})
+      mixables.actions.create({id: 'high', sample: 'hihat', rate: 1.5})
     )
 
     store.dispatch(

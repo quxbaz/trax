@@ -27,7 +27,7 @@ describe("mixables", () => {
       )
       const stateBefore = undefined
       store.dispatch(
-        mixables.actions.createMixable({id: 'foo'})
+        mixables.actions.create({id: 'foo'})
       )
       const stateAfter = {
         foo: {
@@ -45,7 +45,7 @@ describe("mixables", () => {
         1: {},
         2: {}
       }
-      const action = mixables.actions.removeMixable(1)
+      const action = mixables.actions.remove(1)
       const stateAfter = {
         2: {}
       }
@@ -68,7 +68,7 @@ describe("mixables", () => {
         },
         applyMiddleware(thunk)
       )
-      store.dispatch(mixables.actions.deepCopyMixable('0', {id: '1'}))
+      store.dispatch(mixables.actions.deepCopy('0', {id: '1'}))
       expect(store.getState().mixables).toEqual({
         0: {id: '0', gain: 4},
         1: {id: '1', gain: 4},
