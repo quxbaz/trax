@@ -72,7 +72,7 @@ describe("channels", () => {
           blips: {
             10: {id: '10'},
             11: {id: '11'},
-          }
+          },
         },
         applyMiddleware(thunk)
       )
