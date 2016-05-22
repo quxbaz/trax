@@ -57,6 +57,41 @@ describe("channels", () => {
       ).toEqual(stateAfter)
     })
 
+    it("Deep copies a channel.", () => {
+      const store = createStore(
+        combineReducers({
+          id: id.reducer,
+          blips: blips.reducer,
+          channels: channels.reducer,
+        }),
+        {
+          id: '0',
+          channels: {
+            0: {id: '0', blips: ['10', null, '11']},
+          },
+          blips: {
+            10: {id: '10'},
+            11: {id: '11'},
+          }
+        },
+        applyMiddleware(thunk)
+      )
+      store.dispatch(channels.actions.deepCopy('0'))
+      expect(store.getState()).toEqual({
+        id: '3',
+        channels: {
+          0: {id: '0', blips: ['10', null, '11']},
+          1: {id: '1', blips: ['2', null, '3']},
+        },
+        blips: {
+          2: {id: '2'},
+          3: {id: '3'},
+          10: {id: '10'},
+          11: {id: '11'},
+        },
+      })
+    })
+
     it("Archives a channel.", () => {
       const stateBefore = {
         1: {archived: false},
