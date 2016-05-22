@@ -40,12 +40,12 @@ describe("mixables", () => {
       ).toEqual(stateAfter)
     })
 
-    it("Removes a mixable.", () => {
+    it("Destroys a mixable.", () => {
       const stateBefore = {
         1: {},
         2: {}
       }
-      const action = mixables.actions.remove(1)
+      const action = mixables.actions.destroy(1)
       const stateAfter = {
         2: {}
       }

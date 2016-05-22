@@ -91,7 +91,7 @@ describe("presets", () => {
 
     })
 
-    describe("remove", () => {
+    describe("destroy", () => {
 
       let store
 
@@ -105,7 +105,7 @@ describe("presets", () => {
         )
       })
 
-      it("Removes a preset and its mixable.", () => {
+      it("Destroys a preset and its mixable.", () => {
 
         store.dispatch(
           mixables.actions.create({id: 0})
@@ -141,7 +141,7 @@ describe("presets", () => {
         })
 
         store.dispatch(
-          presets.actions.remove(2)
+          presets.actions.destroy(2)
         )
 
         expect(store.getState()).toEqual({

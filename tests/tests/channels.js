@@ -43,12 +43,12 @@ describe("channels", () => {
       ).toEqual(stateAfter)
     })
 
-    it("Removes a channel.", () => {
+    it("Destroys a channel.", () => {
       const stateBefore = {
         1: {id: 1},
         2: {id: 2}
       }
-      const action = channels.actions.remove(1)
+      const action = channels.actions.destroy(1)
       const stateAfter = {
         2: {id: 2}
       }

@@ -40,12 +40,12 @@ describe("blocks", () => {
       ).toEqual(stateAfter)
     })
 
-    it("Removes a block.", () => {
+    it("Destroys a block.", () => {
       const stateBefore = {
         1: {id: 1},
         2: {id: 2}
       }
-      const action = blocks.actions.remove(1)
+      const action = blocks.actions.destroy(1)
       const stateAfter = {
         2: {id: 2}
       }
@@ -90,7 +90,7 @@ describe("blocks", () => {
           blocks: {1: {channels: ['a', 'b']}},
         }
       )
-      store.dispatch(channels.actions.remove('a'))
+      store.dispatch(channels.actions.destroy('a'))
       expect(store.getState().blocks[1]).toEqual({
         channels: ['b']
       })

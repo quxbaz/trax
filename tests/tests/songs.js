@@ -39,12 +39,12 @@ describe("songs", () => {
       })
     })
 
-    it("Removes a song.", () => {
+    it("Destroys a song.", () => {
       const stateBefore = {
         1: {id: 1},
         2: {id: 2}
       }
-      const action = songs.actions.remove(1)
+      const action = songs.actions.destroy(1)
       const stateAfter = {
         2: {id: 2}
       }
@@ -102,7 +102,7 @@ describe("songs", () => {
           songs: {1: {blocks: ['a', 'b']}},
         }
       )
-      store.dispatch(blocks.actions.remove('a'))
+      store.dispatch(blocks.actions.destroy('a'))
       expect(store.getState().songs[1]).toEqual({
         blocks: ['b']
       })
