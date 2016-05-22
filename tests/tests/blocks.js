@@ -54,6 +54,41 @@ describe("blocks", () => {
       ).toEqual(stateAfter)
     })
 
+    it("Deep copies a block.", () => {
+      const store = createStore(
+        combineReducers({
+          id: id.reducer,
+          channels: channels.reducer,
+          blocks: blocks.reducer,
+        }),
+        {
+          id: '0',
+          blocks: {
+            0: {id: '0', channels: ['10', '11']},
+          },
+          channels: {
+            10: {id: '10', blips: []},
+            11: {id: '11', blips: []},
+          },
+        },
+        applyMiddleware(thunk)
+      )
+      store.dispatch(blocks.actions.deepCopy('0'))
+      expect(store.getState()).toEqual({
+        id: '3',
+        blocks: {
+          0: {id: '0', channels: ['10', '11']},
+          1: {id: '1', channels: ['2', '3']},
+        },
+        channels: {
+          2: {id: '2', blips: []},
+          3: {id: '3', blips: []},
+          10: {id: '10', blips: []},
+          11: {id: '11', blips: []},
+        },
+      })
+    })
+
     it("Adds a channel to a block.", () => {
       const stateBefore = {
         b: {channels: []}
