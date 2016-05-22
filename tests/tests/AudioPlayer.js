@@ -52,7 +52,7 @@ describe("AudioPlayer", () => {
     )
 
     store.dispatch(
-      channels.actions.createChannel({
+      channels.actions.create({
         id: 1,
         sample: 'hihat',
         preset: 44,
@@ -111,21 +111,21 @@ describe("AudioPlayer", () => {
     )
 
     store.dispatch(
-      channels.actions.createChannel({
+      channels.actions.create({
         id: 'channel',
         preset: 'preset',
       })
     )
 
     store.dispatch(
-      channels.actions.createChannel({
+      channels.actions.create({
         id: 'channel-low',
         preset: 'preset-low',
       })
     )
 
     store.dispatch(
-      channels.actions.createChannel({
+      channels.actions.create({
         id: 'channel-high',
         preset: 'preset-high',
       })

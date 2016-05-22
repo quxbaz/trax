@@ -90,7 +90,7 @@ describe("blocks", () => {
           blocks: {1: {channels: ['a', 'b']}},
         }
       )
-      store.dispatch(channels.actions.removeChannel('a'))
+      store.dispatch(channels.actions.remove('a'))
       expect(store.getState().blocks[1]).toEqual({
         channels: ['b']
       })

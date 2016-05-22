@@ -30,7 +30,7 @@ describe("channels", () => {
       )
       const stateBefore = undefined
       store.dispatch(
-        channels.actions.createChannel({id: 'foo'})
+        channels.actions.create({id: 'foo'})
       )
       const stateAfter = {
         foo: {
@@ -48,7 +48,7 @@ describe("channels", () => {
         1: {id: 1},
         2: {id: 2}
       }
-      const action = channels.actions.removeChannel(1)
+      const action = channels.actions.remove(1)
       const stateAfter = {
         2: {id: 2}
       }
@@ -62,7 +62,7 @@ describe("channels", () => {
         1: {archived: false},
         2: {}
       }
-      const action = channels.actions.archiveChannel(1)
+      const action = channels.actions.archive(1)
       const stateAfter = {
         1: {archived: true, solo: false},
         2: {}
@@ -76,7 +76,7 @@ describe("channels", () => {
       const stateBefore = {
         1: {archived: false, solo: true},
       }
-      const action = channels.actions.archiveChannel(1)
+      const action = channels.actions.archive(1)
       const stateAfter = {
         1: {archived: true, solo: false},
       }
@@ -87,7 +87,7 @@ describe("channels", () => {
 
     it("Restores an archived channel.", () => {
       const stateBefore = {1: {archived: true}}
-      const action = channels.actions.restoreChannel(1)
+      const action = channels.actions.restore(1)
       const stateAfter = {1: {archived: false}}
       expect(
         channels.reducer(stateBefore, action)
@@ -96,7 +96,7 @@ describe("channels", () => {
 
     it("Toggles mute on a channel.", () => {
       const stateBefore = {1: {mute: false}}
-      const action = channels.actions.toggleMuteChannel(1)
+      const action = channels.actions.toggleMute(1)
       const stateAfter = {1: {mute: true}}
       expect(
         channels.reducer(stateBefore, action)
@@ -108,7 +108,7 @@ describe("channels", () => {
 
     it("Toggles solo on a channel.", () => {
       const stateBefore = {1: {solo: false}}
-      const action = channels.actions.toggleSoloChannel(1)
+      const action = channels.actions.toggleSolo(1)
       const stateAfter = {1: {solo: true}}
       expect(
         channels.reducer(stateBefore, action)
@@ -156,7 +156,7 @@ describe("channels", () => {
 
       it("Creates a blip at a position.", () => {
         store.dispatch(presets.actions.createPreset({id: 'preset', mixable: 'mixable'}))
-        store.dispatch(channels.actions.createChannel({id: 1, preset: 'preset'}))
+        store.dispatch(channels.actions.create({id: 1, preset: 'preset'}))
         store.dispatch(channels.actions.createBlipAt(1, 4, {id: 4}))
         expect(store.getState()).toEqual({
           channels: {
@@ -183,7 +183,7 @@ describe("channels", () => {
 
       it("Does not create a blip if one already exists at the position.", () => {
         store.dispatch(presets.actions.createPreset({id: 'preset', mixable: 'mixable'}))
-        store.dispatch(channels.actions.createChannel({id: 1, preset: 'preset'}))
+        store.dispatch(channels.actions.create({id: 1, preset: 'preset'}))
         store.dispatch(channels.actions.createBlipAt(1, 4, {id: 4}))
         store.dispatch(channels.actions.createBlipAt(1, 4, {id: 'will not exist'}))
         expect(store.getState()).toEqual({
@@ -361,7 +361,7 @@ describe("channels", () => {
 
       it("Toggles an existing blip at a position.", () => {
         store.dispatch(blips.actions.create({id: 'foo'}))
-        store.dispatch(channels.actions.createChannel({
+        store.dispatch(channels.actions.create({
           id: 1,
           blips: util.replaceAt(channelInitialState.blips, 15, 'foo')
         }))
@@ -407,7 +407,7 @@ describe("channels", () => {
           mixable,
         }))
 
-        store.dispatch(channels.actions.createChannel({
+        store.dispatch(channels.actions.create({
           id: 'channel',
           color,
           preset: preset,
