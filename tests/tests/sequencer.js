@@ -17,7 +17,7 @@ describe("sequencer", () => {
 
     it("Creates a sequencer.", () => {
       const stateBefore = undefined
-      const action = sequencer.actions.createSequencer({id: 0})
+      const action = sequencer.actions.create({id: 0})
       const stateAfter = {
         ...initialState,
         id: 0
