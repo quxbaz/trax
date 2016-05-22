@@ -40,6 +40,27 @@ describe("blips", () => {
       ).toEqual(stateAfter)
     })
 
+    it("Deep copies a blip.", () => {
+      const store = createStore(
+        combineReducers({
+          id: id.reducer,
+          blips: blips.reducer,
+        }),
+        {
+          id: '0',
+          blips: {
+            0: {id: '0', foo: 'foo'},
+          },
+        },
+        applyMiddleware(thunk)
+      )
+      store.dispatch(blips.actions.deepCopy('0', {id: '1'}))
+      expect(store.getState().blips).toEqual({
+        0: {id: '0', foo: 'foo'},
+        1: {id: '1', foo: 'foo'},
+      })
+    })
+
     it("Mutes a blip.", () => {
       const stateBefore = {1: {mute: false}}
       const action = blips.actions.mute(1)
