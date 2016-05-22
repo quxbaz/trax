@@ -34,7 +34,7 @@ describe("AudioPlayer", () => {
       applyMiddleware(thunk)
     )
 
-    store.dispatch(player.actions.createPlayer({playing: true}))
+    store.dispatch(player.actions.create({playing: true}))
 
     store.dispatch(
       presets.actions.createPreset({id: 44, sample: 'hihat'})

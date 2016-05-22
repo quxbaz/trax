@@ -17,7 +17,7 @@ describe("player", () => {
 
     it("Creates a player.", () => {
       const stateBefore = undefined
-      const action = player.actions.createPlayer({id: 0})
+      const action = player.actions.create({id: 0})
       const stateAfter = {
         ...initialState,
         id: 0
