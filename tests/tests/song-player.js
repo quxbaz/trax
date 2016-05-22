@@ -17,7 +17,7 @@ describe("song-player", () => {
 
     it("Creates a song player.", () => {
       const stateBefore = undefined
-      const action = songPlayer.actions.createSongPlayer({id: 0})
+      const action = songPlayer.actions.create({id: 0})
       const stateAfter = {
         ...initialState,
         id: 0,
