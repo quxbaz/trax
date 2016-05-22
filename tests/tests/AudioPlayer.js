@@ -178,7 +178,7 @@ describe("AudioPlayer", () => {
       channels: ['channel', 'channel-low', 'channel-high']
     }))
 
-    store.dispatch(songs.actions.createSong({
+    store.dispatch(songs.actions.create({
       id: 'song',
       blocks: ['block-1', 'block-2', 'block-3', 'block-4', null, 'block-5'],
     }))
