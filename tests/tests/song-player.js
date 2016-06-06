@@ -105,6 +105,15 @@ describe("song-player", () => {
       ).toEqual(stateBefore)
     })
 
+    it("Sets the beat duration.", () => {
+      const stateBefore = {}
+      const action = songPlayer.actions.setBeatDuration(144)
+      const stateAfter = {beatDuration: 144}
+      expect(
+        songPlayer.reducer(stateBefore, action)
+      ).toEqual(stateAfter)
+    })
+
     it("Sets the current beat.", () => {
       const stateBefore = {currentBeat: 0}
       const action = songPlayer.actions.setCurrentBeat(7)
