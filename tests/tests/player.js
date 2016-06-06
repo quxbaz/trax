@@ -57,6 +57,15 @@ describe("player", () => {
       ).toEqual(stateBefore)
     })
 
+    it("Sets the beat duration.", () => {
+      const stateBefore = {}
+      const action = player.actions.setBeatDuration(144)
+      const stateAfter = {beatDuration: 144}
+      expect(
+        player.reducer(stateBefore, action)
+      ).toEqual(stateAfter)
+    })
+
     it("Sets the current beat.", () => {
       const stateBefore = {}
       const action = player.actions.setCurrentBeat(5)
