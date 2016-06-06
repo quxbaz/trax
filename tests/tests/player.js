@@ -111,10 +111,10 @@ describe("player", () => {
       ).toEqual(stateAfter)
     })
 
-    it("Does nothing if the beat is already 0.", () => {
-      const stateBefore = {beats: 16, currentBeat: 0}
+    it("Does nothing if the beat is already at the earliest.", () => {
+      const stateBefore = {beats: 16, currentBeat: -1}
       const action = player.actions.reverseTick()
-      const stateAfter = {beats: 16, currentBeat: 0}
+      const stateAfter = {beats: 16, currentBeat: -1}
       expect(
         player.reducer(stateBefore, action)
       ).toEqual(stateAfter)
