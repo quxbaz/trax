@@ -84,6 +84,24 @@ describe("song-player", () => {
       ).toEqual(stateAfter)
     })
 
+    it("Steps the beat backwards.", () => {
+      const stateBefore = {beats: 16, currentBeat: 2}
+      const action = songPlayer.actions.reverseTick()
+      const stateAfter = {beats: 16, currentBeat: 1}
+      expect(
+        songPlayer.reducer(stateBefore, action)
+      ).toEqual(stateAfter)
+    })
+
+    it("Does nothing if the beat is already at the earliest.", () => {
+      const stateBefore = {beats: 16, currentBeat: -1}
+      const action = songPlayer.actions.reverseTick()
+      const stateAfter = {beats: 16, currentBeat: -1}
+      expect(
+        songPlayer.reducer(stateBefore, action)
+      ).toEqual(stateAfter)
+    })
+
     it("Sets the loop flag.", () => {
       const stateBefore = {loop: false}
       const action = songPlayer.actions.setLoop(true)
