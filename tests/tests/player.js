@@ -102,6 +102,24 @@ describe("player", () => {
       ).toEqual(stateAfter)
     })
 
+    it("Steps the beat backwards.", () => {
+      const stateBefore = {beats: 16, currentBeat: 2}
+      const action = player.actions.reverseTick()
+      const stateAfter = {beats: 16, currentBeat: 1}
+      expect(
+        player.reducer(stateBefore, action)
+      ).toEqual(stateAfter)
+    })
+
+    it("Does nothing if the beat is already 0.", () => {
+      const stateBefore = {beats: 16, currentBeat: 0}
+      const action = player.actions.reverseTick()
+      const stateAfter = {beats: 16, currentBeat: 0}
+      expect(
+        player.reducer(stateBefore, action)
+      ).toEqual(stateAfter)
+    })
+
     it("Sets the current block.", () => {
       const stateBefore = {currentBlock: undefined}
       const action = player.actions.setCurrentBlock(1)
